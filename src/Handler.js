@@ -37,6 +37,7 @@ export default class Handler {
   }
   
   onclosetag() {
+    if (!this.stack.length) return;
     let { name, attributes, text } = this.stack.pop();
     if (badTags[name]) {
       return;

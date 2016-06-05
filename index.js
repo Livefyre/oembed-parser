@@ -33,5 +33,6 @@ import request from 'request';
 // https://amp.twimg.com/v/875038d6-41b8-4768-bbbf-4f63bcfe0387
 // http://snpy.tv/1Up0W9M
 // https://www.periscope.tv/w/aiHMFDYyMjc4NHwxTW5HbmpkQk9yVkdPDgo9f8CSm2y9dBfSpwGYIjXyh8gwrnh3AAbTYXXzUyY=
-request('http://www.nytimes.com/2016/06/04/world/europe/eerily-empty-louvre-what-its-like-when-floods-keep-tourists-away.html?smid=tw-nytimesworld&smtyp=cur', { jar: false, maxRedirects: 100, headers: { Host: 'nytimes.com', Referer: 'https://www.google.com', 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'}})
+// http://nyti.ms/28dtAFl
+request('http://www.submarinecablemap.com/#/', { jar: true, maxRedirects: 100, headers: { Referer: 'https://www.google.com', 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'}})
   .pipe(createParser());
