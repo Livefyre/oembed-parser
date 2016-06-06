@@ -1,11 +1,11 @@
 import {WritableStream} from 'htmlparser2';
-// import Parser from './src/Parser';
 import Opengraph from './src/handlers/Opengraph';
 import CompoundHandler from './src/handlers/CompoundHandler';
 import Microdata from './src/handlers/Microdata';
 import Meta from './src/handlers/Meta';
 import JSONLD from './src/handlers/JSONLD';
 import RDFa from './src/handlers/RDFa';
+import toOembed from './src/OembedNormalizer';
 
 export default function createParser() {
   let handler = new CompoundHandler({
@@ -17,7 +17,13 @@ export default function createParser() {
     rdfa: new RDFa
   });
   
-  return new WritableStream(handler, { decodeEntities: true });
+  let stream = new WritableStream(handler, { decodeEntities: true });
+  stream.once('finish', () => {
+    console.log(JSON.stringify(handler.getResult(), false, 2));
+    toOembed(handler.getResult());
+  });
+  
+  return stream;
 }
 
 import request from 'request';

@@ -1,15 +1,15 @@
 import {groupBy} from 'lodash';
-import metaToOembed from './normalizers/meta';
-import opengraphToOembed from './normalizers/opengraph';
-import schemaToOembed from './normalizers/schema';
+import metaNormalizer from './normalizers/meta';
+import opengraphNormalizer from './normalizers/opengraph';
+import schemaNormalizer from './normalizers/schema';
 
 var mapping = {
-  opengraph: opengraphToOembed,
-  twitter: opengraphToOembed,
-  meta: metaToOembed,
-  microdata: schemaToOembed,
-  rdfa: schemaToOembed,
-  jsonld: schemaToOembed
+  opengraph: opengraphNormalizer,
+  twitter: opengraphNormalizer,
+  meta: metaNormalizer,
+  microdata: schemaNormalizer,
+  rdfa: schemaNormalizer,
+  jsonld: schemaNormalizer
 };
 
 var relatedProperties = {

@@ -1,5 +1,3 @@
-import toOembed from '../OembedNormalizer';
-
 export default class CompoundHandler {
   constructor(handlers = {}) {
     this.handlers = handlers;
@@ -23,15 +21,10 @@ export default class CompoundHandler {
     }
   }
   
-  onend() {
-    console.log(JSON.stringify(this.getResult(), false, 2));
-    toOembed(this.getResult());
-  }
-  
   getResult() {
     let result = {};
     for (let handler in this.handlers) {
-      result[handler] = this.handlers[handler].result;
+      result[handler] = this.handlers[handler].getResult();
     }
     
     return result;
