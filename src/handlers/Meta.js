@@ -1,5 +1,5 @@
 import Handler from './Handler';
-import {add, makeArray, setKey} from './utils';
+import {add, makeArray, setKey} from '../utils';
 
 const OPENGRAPH_RE = /^(og|twitter):/;
 

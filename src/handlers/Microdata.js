@@ -1,5 +1,5 @@
 import Handler from './Handler';
-import {add} from './utils';
+import {add} from '../utils';
 
 export default class Microdata extends Handler {
   constructor() {

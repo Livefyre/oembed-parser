@@ -1,4 +1,6 @@
 export function add(dict, key, val) {
+  if (!val) return;
+  
   if (dict[key]) {
     if (!Array.isArray(dict[key]))
       dict[key] = [dict[key]];
@@ -20,6 +22,8 @@ export function makeArray(val) {
 }
 
 export function setKey(root, path, value) {
+  if (!value) return;
+  
   let node = root;
   for (let key of path.slice(0, -2)) {
     if (!node[key]) {
@@ -31,11 +35,11 @@ export function setKey(root, path, value) {
   
   if (path.length > 1) {
     let p = path[path.length - 2];
-    if (node[p]) {
+    let n = node[p];
+    if (n && (Array.isArray(node[p]) || n[path[path.length - 1]])) {
       if (!Array.isArray(node[p]))
-        node[p] = [node[p]];
+        n = node[p] = [node[p]];
       
-      let n = node[p];
       if (n[n.length - 1][path[path.length - 1]])
         n.push({});
       
@@ -47,7 +51,8 @@ export function setKey(root, path, value) {
       
       n[n.length - 1][path[path.length - 1]] = value;
     } else {
-      node[p] = {};
+      if (!node[p])
+        node[p] = {};
       node[p][path[path.length - 1]] = value;
     }
     
@@ -58,4 +63,16 @@ export function setKey(root, path, value) {
   
   // add(node, path[path.length - 2], {});
   // add(node[path[path.length - 2]], node[path[path.length - 1]], value);
+}
+
+export function parseDimension(size) {
+  return parseInt(size, 10) || undefined;
+}
+
+export function get(item) {
+  if (Array.isArray(item)) {
+    return item[0];
+  }
+  
+  return item;
 }

@@ -1,11 +1,11 @@
 import {WritableStream} from 'htmlparser2';
 // import Parser from './src/Parser';
-import Opengraph from './src/Opengraph';
-import CompoundHandler from './src/CompoundHandler';
-import Microdata from './src/Microdata';
-import Meta from './src/Meta';
-import JSONLD from './src/JSONLD';
-import RDFa from './src/RDFa';
+import Opengraph from './src/handlers/Opengraph';
+import CompoundHandler from './src/handlers/CompoundHandler';
+import Microdata from './src/handlers/Microdata';
+import Meta from './src/handlers/Meta';
+import JSONLD from './src/handlers/JSONLD';
+import RDFa from './src/handlers/RDFa';
 
 export default function createParser() {
   let handler = new CompoundHandler({
@@ -34,5 +34,11 @@ import request from 'request';
 // http://snpy.tv/1Up0W9M
 // https://www.periscope.tv/w/aiHMFDYyMjc4NHwxTW5HbmpkQk9yVkdPDgo9f8CSm2y9dBfSpwGYIjXyh8gwrnh3AAbTYXXzUyY=
 // http://nyti.ms/28dtAFl
-request('http://www.submarinecablemap.com/#/', { jar: true, maxRedirects: 100, headers: { Referer: 'https://www.google.com', 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'}})
+// http://bloom.bg/1T6RWFS
+// http://hill.cm/TS4BItV
+// http://53eig.ht/1RkcdH1
+// http://venturebeat.com/2016/03/01/livefyre-upgrades-storify-to-enable-large-newsrooms-to-post-real-time-stories-quickly/
+// http://tnw.me/rtc9jlU
+// https://news.vice.com/article/edward-snowden-leaks-tried-to-tell-nsa-about-surveillance-concerns-exclusive
+request('http://es.pn/25GooYn', { jar: true, maxRedirects: 100, headers: { Referer: 'https://www.google.com', 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'}})
   .pipe(createParser());

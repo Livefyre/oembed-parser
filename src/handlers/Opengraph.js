@@ -1,11 +1,12 @@
 import Handler from './Handler';
-import {add, makeArray, setKey} from './utils';
+import {add, makeArray, setKey} from '../utils';
 
 var rootKeys = {
   'image': 'image:url',
   'video': 'video:url',
   'audio': 'audio:url',
   'player': 'player:url',
+  'player:stream': 'player:stream:url',
   'site': 'site:name'
 };
 
