@@ -1,5 +1,5 @@
 import Handler from './Handler';
-import {add, makeArray, setKey} from '../utils';
+import {add, setKey} from '../utils';
 
 var rootKeys = {
   'image': 'image:url',

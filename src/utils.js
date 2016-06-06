@@ -11,16 +11,6 @@ export function add(dict, key, val) {
   }
 }
 
-export function makeArray(val) {
-  if (val == null)
-    return [];
-  
-  if (!Array.isArray(val))
-    return [val];
-  
-  return val;
-}
-
 export function setKey(root, path, value) {
   if (!value) return;
   
