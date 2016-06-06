@@ -1,32 +1,20 @@
-import {WritableStream} from 'htmlparser2';
-import Opengraph from './src/handlers/Opengraph';
-import CompoundHandler from './src/handlers/CompoundHandler';
-import Microdata from './src/handlers/Microdata';
-import Meta from './src/handlers/Meta';
-import JSONLD from './src/handlers/JSONLD';
-import RDFa from './src/handlers/RDFa';
-import toOembed from './src/OembedNormalizer';
+import Parser from './src/Parser'
 
 export default function createParser() {
-  let handler = new CompoundHandler({
-    opengraph: new Opengraph('og:'),
-    twitter: new Opengraph('twitter:'),
-    microdata: new Microdata,
-    meta: new Meta,
-    jsonld: new JSONLD,
-    rdfa: new RDFa
+  let parser = new Parser;
+  
+  console.time('parse')
+  parser.once('finish', () => {
+    console.log(JSON.stringify(parser.getData(), false, 2));
+    console.log(parser.getOembed());
+    console.timeEnd('parse')
   });
   
-  let stream = new WritableStream(handler, { decodeEntities: true });
-  stream.once('finish', () => {
-    console.log(JSON.stringify(handler.getResult(), false, 2));
-    toOembed(handler.getResult());
-  });
-  
-  return stream;
+  return parser;
 }
 
 import request from 'request';
+import fs from 'fs';
 
 // http://qz.com/596448/one-of-hong-kongs-missing-booksellers-just-reappeared-to-confess-to-an-11-year-old-crime
 // http://www.cnn.com/2016/01/17/politics/bernie-sanders-health-care-plan-sotu/index.html
@@ -46,5 +34,6 @@ import request from 'request';
 // http://venturebeat.com/2016/03/01/livefyre-upgrades-storify-to-enable-large-newsrooms-to-post-real-time-stories-quickly/
 // http://tnw.me/rtc9jlU
 // https://news.vice.com/article/edward-snowden-leaks-tried-to-tell-nsa-about-surveillance-concerns-exclusive
-request('http://es.pn/25GooYn', { jar: true, maxRedirects: 100, headers: { Referer: 'https://www.google.com', 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'}})
+request('https://www.pinterest.com/pin/267049452877879803/?from_navigate=true', { jar: true, maxRedirects: 100, headers: { Referer: 'https://www.google.com', 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'}})
+// fs.createReadStream('test.html')
   .pipe(createParser());

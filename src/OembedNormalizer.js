@@ -59,9 +59,7 @@ export default function toOembed(data) {
     });
   }
   
-  let res = types.video || types.image || types.link;
-  
-  console.log(res)
+  return types.video || types.image || types.link;
 }
 
 function validateOembed(oembed) {
