@@ -10,6 +10,7 @@ export default class Meta extends Handler {
     this.result = Object.create(null);
     this.result.title = '';
     this.result.link = Object.create(null);
+    this.result.images = [];
   }
   
   meta(attributes) {
@@ -27,5 +28,11 @@ export default class Meta extends Handler {
   
   title(attributes, text) {
     this.result.title = text;
+  }
+  
+  img(attributes) {
+    if (attributes.src) {
+      this.result.images.push(attributes);
+    }
   }
 }
