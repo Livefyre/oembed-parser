@@ -35,5 +35,9 @@ import fs from 'fs';
 // http://tnw.me/rtc9jlU
 // https://news.vice.com/article/edward-snowden-leaks-tried-to-tell-nsa-about-surveillance-concerns-exclusive
 request('https://en.wikipedia.org/wiki/Sol_Spiegelman', { jar: true, maxRedirects: 100, headers: { Referer: 'https://www.google.com', 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'}})
-// fs.createReadStream('test.html')
-  .pipe(createParser('https://en.wikipedia.org/wiki/Sol_Spiegelman'));
+  .on('response', function(response) {
+    let contentType = response.headers['content-type'];
+    if (/text\/html/.test(contentType)) {
+      this.pipe(createParser(this.uri.href));
+    }
+  });
