@@ -61,7 +61,9 @@ export default function toOembed(data, url) {
     });
   }
   
-  return types.video || types.image || types.link;
+  let res = types.video || types.image || types.link;
+  
+  return res ? finalizeOembed(res) : null;
 }
 
 function validateOembed(oembed) {
@@ -80,4 +82,26 @@ function countValidKeys(oembed) {
 
 function compareOembeds(a, b) {
   return countValidKeys(b) - countValidKeys(a);
+}
+
+function finalizeOembed(oembed) {
+  oembed.url = url(oembed.url);
+  oembed.link = url(oembed.link);
+  oembed.thumbnail_url = url(oembed.thumbnail_url);
+  
+  if (oembed.type === 'video' && !oembed.html) {
+    oembed.html = /\.mp4$/.test(oembed.url) 
+      ? '<video controls src="' + oembed.url + '"></video>'
+      : '<iframe src="' + oembed.url + '" allowfullscreen></iframe>';
+  }
+  
+  return oembed;
+}
+
+function url(str) {
+  if (str && /^\/\//.test(str)) {
+    str = 'http:' + str;
+  }
+  
+  return str;
 }
