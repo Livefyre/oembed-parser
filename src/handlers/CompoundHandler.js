@@ -3,9 +3,27 @@ export default class CompoundHandler {
     this.handlers = handlers;
   }
   
+  onopentagname(name) {
+    for (let handler in this.handlers) {
+      if (typeof this.handlers[handler].onopentagname === 'function') {
+        this.handlers[handler].onopentagname(name);
+      }
+    }
+  }
+  
   onopentag(name, attributes) {
     for (let handler in this.handlers) {
-      this.handlers[handler].onopentag(name, attributes);
+      if (typeof this.handlers[handler].onopentag === 'function') {
+        this.handlers[handler].onopentag(name, attributes);
+      }
+    }
+  }
+  
+  onattribute(name, value) {
+    for (let handler in this.handlers) {
+      if (typeof this.handlers[handler].onattribute === 'function') {
+        this.handlers[handler].onattribute(name, value);
+      }
     }
   }
   
@@ -15,9 +33,9 @@ export default class CompoundHandler {
     }
   }
   
-  onclosetag() {
+  onclosetag(name) {
     for (let handler in this.handlers) {
-      this.handlers[handler].onclosetag();
+      this.handlers[handler].onclosetag(name);
     }
   }
   

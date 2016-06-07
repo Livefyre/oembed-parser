@@ -2,6 +2,7 @@ import {groupBy} from 'lodash';
 import metaNormalizer from './normalizers/meta';
 import opengraphNormalizer from './normalizers/opengraph';
 import schemaNormalizer from './normalizers/schema';
+import readabilityNormalizer from './normalizers/readability';
 
 var mapping = {
   opengraph: opengraphNormalizer,
@@ -9,7 +10,8 @@ var mapping = {
   meta: metaNormalizer,
   microdata: schemaNormalizer,
   rdfa: schemaNormalizer,
-  jsonld: schemaNormalizer
+  jsonld: schemaNormalizer,
+  readability: readabilityNormalizer
 };
 
 var relatedProperties = {
