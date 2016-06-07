@@ -1,6 +1,6 @@
 import {parseDimension} from '../utils';
 
-export default function schemaToOembed(schema) {
+export default function schemaToOembed(schema, url) {
   let type = (schema['@type'] || '').replace('http://schema.org/', '');
   let image = getImage(schema.image) || getImage(schema.primaryImageOfPage) || getImage(schema.thumbnail) || getImage(schema.thumbnailUrl) || {};
   let thumbnail = getImage(schema.thumbnail) || {};
@@ -14,7 +14,7 @@ export default function schemaToOembed(schema) {
       return {
         version: '1.0',
         type: 'link',
-        url: schema.url,
+        url: schema.url || url,
         title: schema.headline || schema.alternativeHeadline,
         description: schema.description,
         thumbnail_url: image.contentUrl,
@@ -30,7 +30,7 @@ export default function schemaToOembed(schema) {
         version: '1.0',
         type: 'image',
         url: schema.contentUrl || schema.contentURL,
-        link: schema.url,
+        link: schema.url || url,
         width: parseDimension(schema.width),
         height: parseDimension(schema.height),
         thumbnail_url: thumbnail.contentUrl,
@@ -46,7 +46,7 @@ export default function schemaToOembed(schema) {
         version: '1.0',
         type: 'video',
         url: schema.contentUrl || schema.contentURL || schema.embedUrl || schema.embedURL,
-        link: schema.url || schema.embedUrl,
+        link: schema.url || schema.embedUrl || url,
         width: parseDimension(schema.width),
         height: parseDimension(schema.height),
         thumbnail_url: image.contentUrl,

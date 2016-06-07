@@ -1,6 +1,6 @@
 import {parseDimension, get} from '../utils';
 
-export default function opengraphToOembed(og) {
+export default function opengraphToOembed(og, url) {
   let type = 'link';
   if (og.type) {
     if (/video/.test(og.type) && (og.video || og.player)) {
@@ -14,8 +14,8 @@ export default function opengraphToOembed(og) {
   let result = {
     version: '1.0',
     type: type,
-    url: og.url,
-    link: og.url,
+    url: og.url || url,
+    link: og.url || url,
     title: og.title,
     description: og.description,
     provider_name: og.site_name || (og.site && og.site.name),

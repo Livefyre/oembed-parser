@@ -1,7 +1,7 @@
 import Parser from './src/Parser'
 
-export default function createParser() {
-  let parser = new Parser;
+export default function createParser(url) {
+  let parser = new Parser(url);
   
   console.time('parse')
   parser.once('finish', () => {
@@ -34,6 +34,6 @@ import fs from 'fs';
 // http://venturebeat.com/2016/03/01/livefyre-upgrades-storify-to-enable-large-newsrooms-to-post-real-time-stories-quickly/
 // http://tnw.me/rtc9jlU
 // https://news.vice.com/article/edward-snowden-leaks-tried-to-tell-nsa-about-surveillance-concerns-exclusive
-request('https://www.pinterest.com/pin/267049452877879803/?from_navigate=true', { jar: true, maxRedirects: 100, headers: { Referer: 'https://www.google.com', 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'}})
+request('https://en.wikipedia.org/wiki/Sol_Spiegelman', { jar: true, maxRedirects: 100, headers: { Referer: 'https://www.google.com', 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'}})
 // fs.createReadStream('test.html')
-  .pipe(createParser());
+  .pipe(createParser('https://en.wikipedia.org/wiki/Sol_Spiegelman'));

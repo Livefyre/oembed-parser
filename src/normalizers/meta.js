@@ -1,13 +1,13 @@
 import {parseDimension} from '../utils';
 
-export default function metaToOembed(meta) {
+export default function metaToOembed(meta, url) {
   // https://www.parsely.com/help/integration/metatags/
   // https://getstarted.sailthru.com/site/horizon-overview/horizon-meta-tags/
   // http://boomtrain.com/metadata-tags/
   return {
     version: '1.0',
     type: 'link',
-    url: meta.link.canonical || meta['parsely-link'],
+    url: meta.link.canonical || meta['parsely-link'] || url,
     title: meta.title,
     description: meta.description || meta['sailthru.description'],
     author_name: meta.author || meta['sailthru.author'] || meta['parsely-author'] || meta['bt:author'],

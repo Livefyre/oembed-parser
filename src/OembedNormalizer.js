@@ -19,16 +19,16 @@ var relatedProperties = {
   thumbnail_height: 'thumbnail_url'
 };
 
-export default function toOembed(data) {
+export default function toOembed(data, url) {
   // Collect a list of oembeds for all of the metadata we collected
   var oembeds = [];
   for (var key in data) {
     let mapper = mapping[key];
     if (mapper && data[key]) {
       if (Array.isArray(data[key])) {
-        oembeds.push(...data[key].map(mapper));
+        oembeds.push(...data[key].map(item => mapper(item, url)));
       } else {
-        oembeds.push(mapper(data[key]));
+        oembeds.push(mapper(data[key], url));
       }
     }
   }

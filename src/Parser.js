@@ -20,6 +20,7 @@ export default class Parser extends WritableStream {
     
     super(handler, {decodeEntities: true});
     this.handler = handler;
+    this.url = url;
   }
   
   getData() {
@@ -27,6 +28,6 @@ export default class Parser extends WritableStream {
   }
   
   getOembed() {
-    return toOembed(this.getData());
+    return toOembed(this.getData(), this.url);
   }
 }
