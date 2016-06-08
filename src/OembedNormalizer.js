@@ -95,6 +95,10 @@ function finalizeOembed(oembed) {
       : '<iframe src="' + oembed.url + '" allowfullscreen></iframe>';
   }
   
+  if (!oembed.provider_name) {
+    oembed.provider_name = getProvider(oembed.link || oembed.url);
+  }
+  
   return oembed;
 }
 
@@ -104,4 +108,15 @@ function url(str) {
   }
   
   return str;
+}
+
+function getProvider(url) {
+  if (!url) return '';
+
+  let parts = url
+    .replace(/^(https?:\/\/)(www\.)?/i,'')
+    .replace(/\/.*/g, '')
+    .split('.');
+    
+  return parts[parts.length - 2];
 }
