@@ -3,40 +3,33 @@ export default class CompoundHandler {
     this.handlers = handlers;
   }
   
-  onopentagname(name) {
-    for (let handler in this.handlers) {
-      if (typeof this.handlers[handler].onopentagname === 'function') {
-        this.handlers[handler].onopentagname(name);
+  _applyHandlers(name, ...args) {
+    for (let key in this.handlers) {
+      let handler = this.handlers[key];
+      if (typeof handler[name] === 'function') {
+        handler[name](...args);
       }
     }
+  }
+  
+  onopentagname(name) {
+    this._applyHandlers('onopentagname', name);
   }
   
   onopentag(name, attributes) {
-    for (let handler in this.handlers) {
-      if (typeof this.handlers[handler].onopentag === 'function') {
-        this.handlers[handler].onopentag(name, attributes);
-      }
-    }
+    this._applyHandlers('onopentag', name, attributes);
   }
   
   onattribute(name, value) {
-    for (let handler in this.handlers) {
-      if (typeof this.handlers[handler].onattribute === 'function') {
-        this.handlers[handler].onattribute(name, value);
-      }
-    }
+    this._applyHandlers('onattribute', name, value);
   }
   
   ontext(text) {
-    for (let handler in this.handlers) {
-      this.handlers[handler].ontext(text);
-    }
+    this._applyHandlers('ontext', text);
   }
   
   onclosetag(name) {
-    for (let handler in this.handlers) {
-      this.handlers[handler].onclosetag(name);
-    }
+    this._applyHandlers('onclosetag', name);
   }
   
   getResult() {
