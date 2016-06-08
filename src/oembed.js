@@ -1,4 +1,5 @@
 import {groupBy} from 'lodash';
+import moment from 'moment';
 import metaNormalizer from './normalizers/meta';
 import opengraphNormalizer from './normalizers/opengraph';
 import schemaNormalizer from './normalizers/schema';
@@ -146,6 +147,15 @@ function finalizeOembed(oembed) {
     oembed.provider_name = provider[0];
   }
   
+  if (oembed.posted_at) {
+    oembed.posted_at = moment.utc(oembed.posted_at).toDate();
+  }
+  
+  if (oembed.link === oembed.url) {
+    delete oembed.link;
+  }
+  
+  delete oembed.thumbnail_score;
   return oembed;
 }
 
