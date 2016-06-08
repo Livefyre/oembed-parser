@@ -56,6 +56,15 @@ export default function toOembed(data, url) {
           prev[key] = cur[key];
         }
       }
+      
+      // Trust thumbnails with a higher score over those with a lower one
+      // (e.g. opengraph over images in the body)
+      if (scoreThumbnail(cur) > scoreThumbnail(prev) && cur.thumbnail_url) {
+        prev.thumbnail_url = cur.thumbnail_url;
+        prev.thumbnail_width = cur.thumbnail_width;
+        prev.thumbnail_height = cur.thumbnail_height;
+        prev.thumbnail_score = cur.thumbnail_score;
+      }
     
       return prev;
     });
@@ -82,6 +91,14 @@ function countValidKeys(oembed) {
 
 function compareOembeds(a, b) {
   return countValidKeys(b) - countValidKeys(a);
+}
+
+function scoreThumbnail(oembed) {
+  if (oembed.thumbnail_score) {
+    return oembed.thumbnail_score;
+  }
+  
+  return !!oembed.width + !!oembed.height;
 }
 
 function finalizeOembed(oembed) {
