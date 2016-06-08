@@ -35,4 +35,11 @@ export default class Meta extends Handler {
       this.result.images.push(attributes);
     }
   }
+  
+  a(attributes, text) {
+    if (attributes.rel === 'author') {
+      this.result.link.author = attributes.href;
+      this.result.author = text;
+    }
+  }
 }
