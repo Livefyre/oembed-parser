@@ -6,7 +6,7 @@ export default function opengraphToOembed(og, url) {
     if (/video/.test(og.type) && (og.video || og.player)) {
       type = 'video';
     } else if (/image|photo/.test(og.type) && og.image) {
-      type = 'image';
+      type = 'photo';
     }
   }
   
@@ -31,7 +31,7 @@ export default function opengraphToOembed(og, url) {
     height: parseDimension(ogImage.height)
   };
   
-  if (type === 'image') {
+  if (type === 'photo') {
     Object.assign(result, image);
   } else {
     result.thumbnail_url = image.url;

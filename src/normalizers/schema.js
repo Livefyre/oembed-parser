@@ -28,7 +28,7 @@ export default function schemaToOembed(schema, url) {
     case 'ImageObject':
       return {
         version: '1.0',
-        type: 'image',
+        type: 'photo',
         url: schema.contentUrl || schema.contentURL,
         link: schema.url || url,
         width: parseDimension(schema.width),
