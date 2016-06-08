@@ -114,6 +114,19 @@ function scoreThumbnail(oembed) {
 }
 
 function finalizeOembed(oembed) {
+  for (let key in oembed) {
+    let val = oembed[key];
+    if (Array.isArray(val)) {
+      if (val.length > 0) {
+        oembed[key] = val[0];
+      } else {
+        delete oembed[key];
+      }
+    } else if (val == null) {
+      delete oembed[key];
+    }
+  }
+  
   oembed.url = url(oembed.url);
   oembed.link = url(oembed.link);
   oembed.thumbnail_url = url(oembed.thumbnail_url);
