@@ -31,7 +31,7 @@ export default class Meta extends Handler {
   }
   
   img(attributes) {
-    if (attributes.src) {
+    if (attributes.src && !/data:/.test(attributes.src)) {
       this.result.images.push(attributes);
     }
   }
