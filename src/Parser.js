@@ -5,7 +5,7 @@ import Microdata from './handlers/Microdata';
 import Meta from './handlers/Meta';
 import JSONLD from './handlers/JSONLD';
 import RDFa from './handlers/RDFa';
-import toOembed from './OembedNormalizer';
+import toOembed from './oembed';
 import {Readability} from 'readabilitySAX';
 
 export default class Parser extends WritableStream {
