@@ -26,7 +26,7 @@ export default function opengraphToOembed(og, url) {
   
   let ogImage = get(og.image) || {};
   let image = {
-    url: ogImage.url,
+    url: ogImage.url || ogImage.src,
     width: parseDimension(ogImage.width),
     height: parseDimension(ogImage.height)
   };
