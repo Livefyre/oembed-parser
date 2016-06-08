@@ -37,7 +37,7 @@ import fs from 'fs';
 request('https://en.wikipedia.org/wiki/Sol_Spiegelman', { jar: true, maxRedirects: 100, headers: { Referer: 'https://www.google.com', 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)'}})
   .on('response', function(response) {
     let contentType = response.headers['content-type'];
-    if (/text\/html/.test(contentType)) {
+    if (/text\/html/.test(contentType) && response.statusCode === 200) {
       this.pipe(createParser(this.uri.href));
     }
   });
