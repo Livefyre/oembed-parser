@@ -10,6 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "htmlparser2": "^3.9.0",
-    "moment": "^2.11.1"
+    "lodash": "^4.13.1",
+    "moment": "^2.11.1",
+    "readabilitySAX": "^1.6.1"
   }
 }
