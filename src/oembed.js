@@ -60,7 +60,7 @@ export default function toOembed(data, url) {
       
       // Trust thumbnails with a higher score over those with a lower one
       // (e.g. opengraph over images in the body)
-      if (scoreThumbnail(cur) > scoreThumbnail(prev) && cur.thumbnail_url) {
+      if (cur.thumbnail_url !== prev.thumbnail_url && scoreThumbnail(cur) > scoreThumbnail(prev)) {
         prev.thumbnail_url = cur.thumbnail_url;
         prev.thumbnail_width = cur.thumbnail_width;
         prev.thumbnail_height = cur.thumbnail_height;
@@ -107,11 +107,15 @@ function compareOembeds(a, b) {
 }
 
 function scoreThumbnail(oembed) {
+  if (!oembed.thumbnail_url) {
+    return -2;
+  }
+  
   if (oembed.thumbnail_score) {
     return oembed.thumbnail_score;
   }
   
-  return !!oembed.width + !!oembed.height;
+  return !!oembed.thumbnail_width + !!oembed.thumbnail_height;
 }
 
 function finalizeOembed(oembed) {
