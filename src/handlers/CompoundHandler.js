@@ -3,24 +3,33 @@ export default class CompoundHandler {
     this.handlers = handlers;
   }
   
+  _applyHandlers(name, ...args) {
+    for (let key in this.handlers) {
+      let handler = this.handlers[key];
+      if (typeof handler[name] === 'function') {
+        handler[name](...args);
+      }
+    }
+  }
+  
   onopentagname(name) {
-    applyHandlers(this.handlers.onopentagname, name);
+    this._applyHandlers('onopentagname', name);
   }
   
   onopentag(name, attributes) {
-    applyHandlers(this.handlers.onopentag, name, attributes);
+    this._applyHandlers('onopentag', name, attributes);
   }
   
   onattribute(name, value) {
-    applyHandlers(this.handlers.onattribute, name, value);
+    this._applyHandlers('onattribute', name, value);
   }
   
   ontext(text) {
-    applyHandlers(this.handlers.ontext, text);
+    this._applyHandlers('ontext', text);
   }
   
   onclosetag(name) {
-    applyHandlers(this.handlers.onclosetag, name);
+    this._applyHandlers('onclosetag', name);
   }
   
   getResult() {
@@ -30,14 +39,5 @@ export default class CompoundHandler {
     }
     
     return result;
-  }
-}
-
-function applyHandlers(handlers, ...args) {
-  for (let key in handlers) {
-    let handler = handlers[key];
-    if (typeof handler[name] === 'function') {
-      handler[name](...args);
-    }
   }
 }
