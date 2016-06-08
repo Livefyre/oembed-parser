@@ -1,3 +1,5 @@
+import entities from 'entities';
+
 const badTags = {
   constructor: true,
   onopentag: true,
@@ -42,6 +44,8 @@ export default class Handler {
     if (badTags[name]) {
       return;
     }
+    
+    text = entities.decodeHTML(text);
     
     if (typeof this[name] === 'function') {
       this[name](attributes, text);

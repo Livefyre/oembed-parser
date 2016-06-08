@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "entities": "^1.1.1",
     "htmlparser2": "^3.9.0",
     "lodash": "^4.13.1",
     "moment": "^2.11.1",

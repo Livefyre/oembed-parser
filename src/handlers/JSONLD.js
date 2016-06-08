@@ -1,4 +1,5 @@
 import Handler from './Handler';
+import {add} from '../utils';
 
 export default class JSONLD extends Handler {
   constructor() {
