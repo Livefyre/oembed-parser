@@ -95,8 +95,13 @@ function finalizeOembed(oembed) {
       : '<iframe src="' + oembed.url + '" allowfullscreen></iframe>';
   }
   
+  let provider = getProvider(oembed.link || oembed.url);
+  if (!oembed.provider_url) {
+    oembed.provider_url = 'http://' + provider.join('.');
+  }
+  
   if (!oembed.provider_name) {
-    oembed.provider_name = getProvider(oembed.link || oembed.url);
+    oembed.provider_name = provider[0];
   }
   
   return oembed;
@@ -113,10 +118,9 @@ function url(str) {
 function getProvider(url) {
   if (!url) return '';
 
-  let parts = url
+  return url
     .replace(/^(https?:\/\/)(www\.)?/i,'')
     .replace(/\/.*/g, '')
-    .split('.');
-    
-  return parts[parts.length - 2];
+    .split('.')
+    .slice(-2);
 }
