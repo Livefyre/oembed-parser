@@ -76,7 +76,19 @@ export default function toOembed(data, url) {
 }
 
 function validateOembed(oembed) {
-  return oembed && oembed.url;
+  // Require a url
+  if (!oembed || !oembed.url) {
+    return false;
+  }
+  
+  // Require at least one other key
+  for (let key in oembed) {
+    if (oembed[key] && key !== 'url' && key !== 'link') {
+      return true;
+    }
+  }
+  
+  return false;
 }
 
 function countValidKeys(oembed) {
