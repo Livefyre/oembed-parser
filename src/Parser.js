@@ -5,14 +5,11 @@ import Microdata from './handlers/Microdata';
 import Meta from './handlers/Meta';
 import JSONLD from './handlers/JSONLD';
 import RDFa from './handlers/RDFa';
+import Readability from './handlers/Readability';
 import toOembed from './oembed';
-import {Readability} from 'readabilitySAX';
 
 export default class Parser extends WritableStream {
   constructor(url) {
-    let readability = new Readability;
-    readability.getResult = () => readability.getArticle('text');
-    
     let handler = new CompoundHandler({
       opengraph: new Opengraph('og:'),
       twitter: new Opengraph('twitter:'),
@@ -20,7 +17,7 @@ export default class Parser extends WritableStream {
       meta: new Meta,
       jsonld: new JSONLD,
       rdfa: new RDFa,
-      readability: readability
+      readability: new Readability
     });
     
     super(handler, {decodeEntities: true});
