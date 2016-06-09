@@ -19,7 +19,8 @@ var relatedProperties = {
   width: 'url',
   height: 'url',
   thumbnail_width: 'thumbnail_url',
-  thumbnail_height: 'thumbnail_url'
+  thumbnail_height: 'thumbnail_url',
+  thumbnail_score: 'thumbnail_url'
 };
 
 export default function toOembed(data, url) {
