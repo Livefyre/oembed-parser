@@ -17,7 +17,7 @@ export default function metaToOembed(meta, url) {
     thumbnail_url: image.src,
     thumbnail_width: image.width,
     thumbnail_height: image.height,
-    thumbnail_score: image.score,
+    thumbnail_score: -1,
     posted_at: meta['article:published_time'] || meta['article:published'] || meta['article:modified_time'] || meta['parsely-pub-date'] || meta['sailthru.date'] || meta.date || meta['dc.date.issued'] || meta['dc.date'] || meta['dc:date'] || meta['bt:pubDate'] || meta['bt:modDate']
   };
 }
@@ -36,8 +36,7 @@ function getImage(meta) {
     return {
       src: img.src,
       width: parseDimension(img.width),
-      height: parseDimension(img.height),
-      score: -1
+      height: parseDimension(img.height)
     };
   }).sort((a, b) => (b.width * b.height) - (a.width * a.height))[0];
 }
