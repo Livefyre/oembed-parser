@@ -8,6 +8,8 @@ export default function opengraphToOembed(og, url) {
     } else if (/image|photo/.test(og.type) && og.image) {
       type = 'photo';
     }
+  } else if (og.video) {
+    type = 'video';
   }
   
   let article = get(og.article) || {};
