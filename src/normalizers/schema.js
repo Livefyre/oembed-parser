@@ -82,6 +82,12 @@ function getAuthor(author) {
     };
   }
   
+  if (Array.isArray(author)) {
+    return {
+      name: author.map(author => getAuthor(author).name).join(', ')
+    };
+  }
+  
   if (typeof author === 'object') {
     if (!author.name && (author.givenName || author.familyName)) {
       author.name = [author.givenName, author.familyName].filter(Boolean).join(' ');
