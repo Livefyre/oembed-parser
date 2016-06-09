@@ -17,7 +17,9 @@ export default class Microdata extends Handler {
       }
       
       if (this.microdataStack.length && attributes.itemprop) {
-        add(this.microdataStack[this.microdataStack.length - 1], attributes.itemprop, item);
+        for (let prop of attributes.itemprop.split(/\s+/)) {
+          add(this.microdataStack[this.microdataStack.length - 1], prop, item);
+        }
       }
       
       this.microdataStack.push(item);
