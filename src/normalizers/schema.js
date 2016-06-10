@@ -38,6 +38,8 @@ export default function schemaToOembed(schema, url) {
         thumbnail_height: thumbnail.height,
         title: schema.caption || schema.name,
         description: schema.description,
+        author_name: author.name,
+        author_url: author.url,
         posted_at: schema.datePublished || schema.dateCreated || schema.dateModified
       };
       
@@ -52,8 +54,10 @@ export default function schemaToOembed(schema, url) {
         thumbnail_url: image.contentUrl,
         thumbnail_width: image.width,
         thumbnail_height: image.height,
-        title: schema.caption || schema.name,
+        title: schema.name || schema.caption,
         description: schema.description,
+        author_name: author.name,
+        author_url: author.url,
         posted_at: schema.datePublished || schema.dateCreated || schema.dateModified
       };
   }
@@ -78,13 +82,13 @@ function getImage(image) {
 function getAuthor(author) {
   if (typeof author === 'string') {
     return {
-      name: author
+      name: author.trim()
     };
   }
   
   if (Array.isArray(author)) {
     return {
-      name: author.map(author => getAuthor(author).name).join(', ')
+      name: author.map(author => (getAuthor(author).name || '').trim()).filter(Boolean).join(', ') || undefined
     };
   }
   
@@ -93,6 +97,7 @@ function getAuthor(author) {
       author.name = [author.givenName, author.familyName].filter(Boolean).join(' ');
     }
     
+    author.url = author.url || author.href;
     return author;
   }
 }
