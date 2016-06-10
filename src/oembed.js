@@ -128,7 +128,8 @@ function scoreThumbnail(oembed) {
     return oembed.thumbnail_score;
   }
   
-  return !!oembed.thumbnail_width + !!oembed.thumbnail_height;
+  // return (oembed.thumbnail_width || 0) * (oembed.thumbnail_height || 0);
+  return 0;
 }
 
 function finalizeOembed(oembed) {
