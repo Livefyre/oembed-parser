@@ -80,7 +80,7 @@ export default function toOembed(data, url) {
     });
   }
   
-  let res = types.video || types.image || types.link;
+  let res = types.video || types.photo || types.link;
   
   return res ? finalizeOembed(res) : null;
 }
