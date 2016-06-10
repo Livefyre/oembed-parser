@@ -18,7 +18,7 @@ export default function opengraphToOembed(og, url) {
     link: og.url || url,
     title: og.title,
     description: og.description,
-    provider_name: og.site_name || (og.site && og.site.name),
+    provider_name: og.site_name || og.domain || (og.site && (og.site.name || '').replace(/^@/, '')),
     posted_at: og.pubdate || article.published_time || article.modified_time,
     author_name: article.author,
     // author_url: data.meta.link.author
