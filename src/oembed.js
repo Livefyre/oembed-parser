@@ -1,11 +1,14 @@
 import {groupBy} from 'lodash';
 import moment from 'moment';
+import urlRegex from 'url-regex';
 import metaNormalizer from './normalizers/meta';
 import opengraphNormalizer from './normalizers/opengraph';
 import schemaNormalizer from './normalizers/schema';
 import readabilityNormalizer from './normalizers/readability';
 
-var mapping = {
+const isURL = urlRegex();
+
+const mapping = {
   opengraph: opengraphNormalizer,
   twitter: opengraphNormalizer,
   meta: metaNormalizer,
@@ -15,7 +18,7 @@ var mapping = {
   readability: readabilityNormalizer
 };
 
-var relatedProperties = {
+const relatedProperties = {
   width: 'url',
   height: 'url',
   thumbnail_width: 'thumbnail_url',
@@ -81,6 +84,10 @@ function validateOembed(oembed) {
   // Require a url
   if (!oembed || !oembed.url) {
     return false;
+  }
+  
+  if (isURL.test(oembed.author_name)) {
+    delete oembed.author_name;
   }
   
   // Require at least one other key
