@@ -26,6 +26,11 @@ const relatedProperties = {
   thumbnail_score: 'thumbnail_url'
 };
 
+const uncountedKeys = {
+  thumbnail_score: true,
+  video_type: true
+};
+
 export default function toOembed(data, url) {
   // Collect a list of oembeds for all of the metadata we collected
   var oembeds = [];
@@ -103,7 +108,7 @@ function validateOembed(oembed) {
 function countValidKeys(oembed) {
   let count = 0;
   for (let key in oembed) {
-    if (oembed[key]) {
+    if (oembed[key] && !uncountedKeys[key]) {
       count++;
     }
   }
