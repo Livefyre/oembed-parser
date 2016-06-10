@@ -152,9 +152,12 @@ function finalizeOembed(oembed) {
   oembed.thumbnail_url = url(oembed.thumbnail_url);
   
   if (oembed.type === 'video' && !oembed.html) {
-    oembed.html = /\.mp4$/.test(oembed.url) 
+    let video_type = oembed.video_type || (/\.mp4$/.test(oembed.url) ? 'video' : 'iframe');
+    oembed.html = video_type === 'video'
       ? '<video controls src="' + oembed.url + '"></video>'
       : '<iframe src="' + oembed.url + '" allowfullscreen></iframe>';
+      
+    delete oembed.video_type;
   }
   
   let provider = getProvider(oembed.link || oembed.url);
