@@ -43,4 +43,11 @@ export default class Microdata extends Handler {
       add(item, attributes.itemprop, value);
     }
   }
+  
+  a(attributes, text) {
+    let item = this.microdataStack[this.microdataStack.length - 1];
+    if (item && attributes.href && !attributes.itemprop && !item.href) {
+      item.href = attributes.href;
+    }
+  }
 }
