@@ -8,8 +8,6 @@ export default function opengraphToOembed(og, url) {
     } else if (/image|photo/.test(og.type) && og.image) {
       type = 'photo';
     }
-  } else if (og.video) {
-    type = 'video';
   }
   
   let article = get(og.article) || {};
@@ -41,12 +39,15 @@ export default function opengraphToOembed(og, url) {
     result.thumbnail_height = image.height;
   }
   
-  if (type === 'video' && (og.player || og.video)) {
-    let video = get(og.video);
+  let video = get(og.video || og.player);
+  let videoURL = video && ((video.stream && video.stream.url) || video.url);
+  if (videoURL) {
     Object.assign(result, {
-      url: og.player ? (og.player.stream && og.player.stream.url) || og.player.url : video.url,
+      type: 'video',
+      url: videoURL,
       width: parseDimension(video.width),
-      height: parseDimension(video.height)
+      height: parseDimension(video.height),
+      video_type: video.stream && video.stream.url ? 'video' : 'iframe'
     });
   }
   
