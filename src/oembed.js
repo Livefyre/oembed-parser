@@ -175,6 +175,11 @@ function finalizeOembed(oembed) {
   }
   
   delete oembed.thumbnail_score;
+  
+  if (typeof oembed.author_name === 'string') {
+    oembed.author_name = oembed.author_name.replace(/^by\s+/i, '');
+  }
+  
   return oembed;
 }
 
