@@ -142,6 +142,8 @@ function finalizeOembed(oembed) {
       }
     } else if (val == null) {
       delete oembed[key];
+    } else if (typeof val === 'string') {
+      oembed[key] = val.trim();
     }
   }
   
