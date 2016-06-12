@@ -8,6 +8,8 @@ export default function opengraphToOembed(og, url) {
     } else if (/image|photo/.test(og.type) && og.image) {
       type = 'photo';
     }
+  } else if (og.card === 'photo') {
+    type = 'photo';
   }
   
   let article = get(og.article) || {};
@@ -20,8 +22,7 @@ export default function opengraphToOembed(og, url) {
     description: og.description,
     provider_name: og.site_name || og.domain || (og.site && (og.site.name || '').replace(/^@/, '')),
     posted_at: og.pubdate || article.published_time || article.modified_time,
-    author_name: article.author,
-    // author_url: data.meta.link.author
+    author_name: article.author
   };
   
   let ogImage = get(og.image) || {};
