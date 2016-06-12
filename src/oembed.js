@@ -1,6 +1,7 @@
 import {groupBy, values} from 'lodash';
 import moment from 'moment';
 import urlRegex from 'url-regex';
+import parseDomain from 'parse-domain';
 import metaNormalizer from './normalizers/meta';
 import opengraphNormalizer from './normalizers/opengraph';
 import schemaNormalizer from './normalizers/schema';
@@ -168,13 +169,13 @@ function finalizeOembed(oembed) {
     delete oembed.video_type;
   }
   
-  let provider = getProvider(oembed.link || oembed.url);
+  let provider = parseDomain(oembed.link || oembed.url);
   if (!oembed.provider_url) {
-    oembed.provider_url = 'http://' + provider.join('.');
+    oembed.provider_url = 'http://' + provider.domain + '.' + provider.tld
   }
   
   if (!oembed.provider_name) {
-    oembed.provider_name = provider[0];
+    oembed.provider_name = provider.domain;
   }
   
   if (oembed.posted_at) {
@@ -200,14 +201,4 @@ function url(str) {
   }
   
   return str;
-}
-
-function getProvider(url) {
-  if (!url) return '';
-
-  return url
-    .replace(/^(https?:\/\/)(www\.)?/i,'')
-    .replace(/\/.*/g, '')
-    .split('.')
-    .slice(-2);
 }
