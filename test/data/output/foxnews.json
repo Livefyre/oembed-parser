@@ -1,0 +1,15 @@
+{
+  "version": "1.0",
+  "type": "video",
+  "url": "http://video.foxnews.com/assets/video-player.swf?video_id=4934403994001&d=video.foxnews.com&auto_play=true",
+  "link": "http://video.foxnews.com/v/4934403994001/hottest-toys-for-summer-2016-/",
+  "title": "Hottest toys for summer 2016",
+  "description": "'Well Played' author Meredith Sinclair shares products",
+  "provider_name": "Fox News",
+  "thumbnail_url": "http://a57.foxnews.com/media2.foxnews.com/BrightCove/694940094001/2016/06/10/640/360/694940094001_4934389219001_d705f1b0-b672-4193-b035-1e0c6d7b8f19.jpg",
+  "width": 640,
+  "height": 360,
+  "html": "<iframe src=\"http://video.foxnews.com/assets/video-player.swf?video_id=4934403994001&d=video.foxnews.com&auto_play=true\" allowfullscreen></iframe>",
+  "provider_url": "http://foxnews.com",
+  "posted_at": "2016-06-10T00:00:00.000Z"
+}

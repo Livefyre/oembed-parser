@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "type": "video",
+  "url": "http://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf?channel=brotatoe&playerType=facebook",
+  "link": "https://www.twitch.tv/brotatoe",
+  "title": "Brotatoe - Twitch",
+  "description": "BroPlays: THE CLAWWWWWWW - Sponsored by #Doritos",
+  "provider_name": "Twitch",
+  "thumbnail_url": "https://static-cdn.jtvnw.net/jtv_user_pictures/brotatoe-profile_image-4611b7da81932039-300x300.png",
+  "html": "<iframe src=\"http://www-cdn.jtvnw.net/swflibs/TwitchPlayer.swf?channel=brotatoe&playerType=facebook\" allowfullscreen></iframe>",
+  "provider_url": "http://twitch.tv"
+}

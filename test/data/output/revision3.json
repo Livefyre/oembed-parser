@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "type": "video",
+  "url": "https://embed.revision3.com/player/embed?videoId=76650&autoplay=false&external=true&sourceFeed=twittercard",
+  "link": "http://revision3.com/sourcefednerd/one-million-subscriber-challenge",
+  "title": "One Million Subscriber CHALLENGE!",
+  "description": "We're nearly at a million and we wanted to thank YOU for joining us! We've got cool things happening on the channel, so DON'T GO ANYWHERE!",
+  "provider_name": "Revision3",
+  "thumbnail_url": "https://videos.revision3.com/revision3/images/shows//sourcefednerd/2081/sourcefednerd--2081--one-million-subscriber-challenge--1465517849--large.thumb.jpg",
+  "html": "<iframe src=\"https://embed.revision3.com/player/embed?videoId=76650&autoplay=false&external=true&sourceFeed=twittercard\" allowfullscreen></iframe>",
+  "provider_url": "http://revision3.com"
+}

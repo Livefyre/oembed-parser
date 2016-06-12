@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "type": "video",
+  "url": "https://www.ustream.tv/flash/viewer.swf?cid=6540154&v3=1&bgcolor=000000&campaign=facebook",
+  "link": "http://www.ustream.tv/nasahdtv",
+  "title": "NASA Public-Education",
+  "description": "NASA TV airs a variety of regularly scheduled, pre-recorded educational and public relations programming 24 hours a day on its various channels. Programs include \"NASA Gallery\", which features photographs and video from NASA's history; \"Video File\", which broadcasts b-roll footage for news and media outlets; \"Education File\", which provides special programming for schools; \"NASA Edge\" and \"NASA 360\", hosted programs that focus on different aspects of NASA; and \"This Week @ NASA\", which shows news from NASA centers around the country. Live ISS coverage and related commentary is aired daily at 11 a.m. EST and repeats throughout the day.[7]\nThe network also provides an array of live programming, such as 24-hour coverage of Space Shuttle missions, ISS events (spacewalks, media interviews, educational broadcasts), press conferences and rocket launches. These often include running commentary by members of the NASA Public Affairs Office who serve as the \"voice of Mission Control,\" including Rob Navias, Josh Byerly, Nicole Cloutier and Brandi Dean.\nIn the United States, NASA Television's Public and Media channels are MPEG-2 digital C-band signals carried by QPSK/DVB-S modulation on satellite AMC-3, transponder 15C, at 87 degrees west longitude. Downlink frequency is 4000 MHz, horizontal polarization, with a data rate of 38.86 Mhz, symbol rate of 28.1115 Ms/s, and ¾ FEC. A Digital Video Broadcast (DVB) compliant Integrated Receiver Decoder (IRD) is needed for reception.",
+  "provider_name": "Ustream",
+  "thumbnail_url": "http://static-cdn1.ustream.tv/i/channel/picture/6/5/4/0/6540154/6540154,640x360,b:2.jpg",
+  "width": 480,
+  "height": 320,
+  "html": "<iframe src=\"https://www.ustream.tv/flash/viewer.swf?cid=6540154&v3=1&bgcolor=000000&campaign=facebook\" allowfullscreen></iframe>",
+  "provider_url": "http://ustream.tv"
+}

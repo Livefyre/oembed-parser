@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "type": "video",
+  "url": "http://nba.cdn.turner.com/nba/big/channels/nba_tv/2016/06/04/20160604-gt-warriors-cavs-ali.nba_768x432_1404.mp4",
+  "link": "http://www.nba.com/video/channels/nba_tv/2016/06/04/20160604-gt-warriors-cavs-ali.nba/",
+  "thumbnail_url": "http://i.cdn.turner.com/nba/nba/dam/assets/160604195453-20160604-gt-warriors-cavs-ali-00010128.video-player.jpg",
+  "title": "GameTime: Warriors and Cavaliers Remember Ali",
+  "description": "Various members of the Warriors and Cavaliers speak to the media about Muhammad Ali.",
+  "html": "<video controls src=\"http://nba.cdn.turner.com/nba/big/channels/nba_tv/2016/06/04/20160604-gt-warriors-cavs-ali.nba_768x432_1404.mp4\"></video>",
+  "provider_url": "http://nba.com",
+  "provider_name": "NBA.com"
+}

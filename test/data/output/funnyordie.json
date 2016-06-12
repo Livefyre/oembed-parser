@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "type": "video",
+  "url": "http://www.funnyordie.com/embed/876e737d1e",
+  "link": "http://www.funnyordie.com/videos/876e737d1e/bieber-after-the-dentist",
+  "thumbnail_url": "http://www.funnyordie.com/thumbnails/876e737d1e/fullsize",
+  "title": "Bieber After the Dentist",
+  "description": "A video of our son Justin Bieber after he left the dentist with a little too much novacaine.",
+  "author_name": "Funny Or Die Music",
+  "author_url": "http://www.funnyordie.com/music",
+  "provider_name": "Funny Or Die",
+  "html": "<iframe src=\"http://www.funnyordie.com/embed/876e737d1e\" allowfullscreen></iframe>",
+  "provider_url": "http://funnyordie.com"
+}

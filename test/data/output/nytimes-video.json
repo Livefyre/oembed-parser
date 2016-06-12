@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "type": "video",
+  "url": "http://graphics8.nytimes.com/bcvideo/1.0/iframe/embed.html?videoId=100000004142268&playerType=embed",
+  "link": "http://www.nytimes.com/video/technology/personaltech/100000004142268/fresh-from-ces.html",
+  "width": 600,
+  "height": 338,
+  "thumbnail_url": "https://static01.nyt.com/images/2016/01/13/multimedia/appsmart-video/appsmart-video-videoSixteenByNine1050.jpg",
+  "thumbnail_width": 1050,
+  "thumbnail_height": 591,
+  "title": "App Smart | Fresh From CES",
+  "description": "Among the notable apps at International CES were the video-sharing apps MeVee and VidMob and the home DJ app Edjing Scratch.",
+  "author_name": "KIT EATON and DALLAS JENSEN",
+  "posted_at": "2016-01-13T19:37:12.000Z",
+  "html": "<iframe src=\"http://graphics8.nytimes.com/bcvideo/1.0/iframe/embed.html?videoId=100000004142268&playerType=embed\" allowfullscreen></iframe>",
+  "provider_url": "http://nytimes.com",
+  "provider_name": "NYTimes.com - Video"
+}

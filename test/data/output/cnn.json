@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "type": "video",
+  "url": "http://www.cnn.com/videos/politics/2016/01/17/sotu-bernie-sanders-responds-to-chelsea-clinton-attack-sot.cnn",
+  "thumbnail_url": "http://i2.cdn.turner.com/cnnnext/dam/assets/160117162244-sotu-bernie-sanders-responds-to-chelsea-clinton-attack-sot-00005727-large-169.jpg",
+  "title": "Bernie Sanders: Chelsea Clinton is wrong",
+  "description": "Sen. Bernie Sanders talks with CNN's Jake Tapper about Chelsea Clinton's recent attacks on his healthcare plan.",
+  "html": "<iframe src=\"http://www.cnn.com/videos/politics/2016/01/17/sotu-bernie-sanders-responds-to-chelsea-clinton-attack-sot.cnn\" allowfullscreen></iframe>",
+  "provider_url": "http://cnn.com",
+  "provider_name": "cnn"
+}
