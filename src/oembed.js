@@ -2,6 +2,7 @@ import {groupBy, values} from 'lodash';
 import moment from 'moment';
 import urlRegex from 'url-regex';
 import parseDomain from 'parse-domain';
+import URL from 'url';
 import metaNormalizer from './normalizers/meta';
 import opengraphNormalizer from './normalizers/opengraph';
 import schemaNormalizer from './normalizers/schema';
@@ -52,8 +53,10 @@ export default function toOembed(data, url) {
     }
   }
   
+  oembeds = oembeds.filter(o => validateOembed(o, url));
+  
   // Group oembeds by URL
-  let groups = groupBy(oembeds.filter(validateOembed), o => o.link || o.url);
+  let groups = groupBy(oembeds, o => o.link || o.url);
   for (let group in groups) {
     // Starting with the oembed with the highest type, and most information, 
     // combine info from all related oembeds.
@@ -65,15 +68,35 @@ export default function toOembed(data, url) {
   return res ? finalizeOembed(res) : null;
 }
 
-function validateOembed(oembed) {
+function validateOembed(oembed, url) {
   // Require a url
   if (!oembed || !oembed.url) {
     return false;
   }
   
+  for (let key in oembed) {
+    let val = oembed[key];
+    if (Array.isArray(val)) {
+      if (val.length > 0) {
+        oembed[key] = val[0];
+      } else {
+        delete oembed[key];
+      }
+    } else if (val == null) {
+      delete oembed[key];
+    } else if (typeof val === 'string') {
+      oembed[key] = val.trim();
+    }
+  }
+  
   if (isURL.test(oembed.author_name)) {
     delete oembed.author_name;
   }
+  
+  oembed.url = resolveURL(url, oembed.url);
+  oembed.link = resolveURL(url, oembed.link);
+  oembed.thumbnail_url = resolveURL(url, oembed.thumbnail_url);
+  oembed.author_url = resolveURL(url, oembed.author_url);
   
   // Require at least one other key
   for (let key in oembed) {
@@ -83,6 +106,10 @@ function validateOembed(oembed) {
   }
   
   return false;
+}
+
+function resolveURL(from, to) {
+  return to ? URL.resolve(from || 'http://', to) : undefined;
 }
 
 function countValidKeys(oembed) {
@@ -141,25 +168,6 @@ function scoreThumbnail(oembed) {
 }
 
 function finalizeOembed(oembed) {
-  for (let key in oembed) {
-    let val = oembed[key];
-    if (Array.isArray(val)) {
-      if (val.length > 0) {
-        oembed[key] = val[0];
-      } else {
-        delete oembed[key];
-      }
-    } else if (val == null) {
-      delete oembed[key];
-    } else if (typeof val === 'string') {
-      oembed[key] = val.trim();
-    }
-  }
-  
-  oembed.url = url(oembed.url);
-  oembed.link = url(oembed.link);
-  oembed.thumbnail_url = url(oembed.thumbnail_url);
-  
   if (oembed.type === 'video' && !oembed.html) {
     let video_type = oembed.video_type || (/\.mp4$/.test(oembed.url) ? 'video' : 'iframe');
     oembed.html = video_type === 'video'
@@ -171,7 +179,7 @@ function finalizeOembed(oembed) {
   
   let provider = parseDomain(oembed.link || oembed.url);
   if (!oembed.provider_url) {
-    oembed.provider_url = 'http://' + provider.domain + '.' + provider.tld
+    oembed.provider_url = 'http://' + provider.domain + '.' + provider.tld;
   }
   
   if (!oembed.provider_name) {
@@ -193,12 +201,4 @@ function finalizeOembed(oembed) {
   }
   
   return oembed;
-}
-
-function url(str) {
-  if (str && /^\/\//.test(str)) {
-    str = 'http:' + str;
-  }
-  
-  return str;
 }
