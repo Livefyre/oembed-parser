@@ -1,4 +1,4 @@
-import {groupBy} from 'lodash';
+import {groupBy, values} from 'lodash';
 import moment from 'moment';
 import urlRegex from 'url-regex';
 import metaNormalizer from './normalizers/meta';
@@ -31,6 +31,12 @@ const uncountedKeys = {
   video_type: true
 };
 
+const typeOrder = {
+  video: 3,
+  photo: 2,
+  link: 1
+};
+
 export default function toOembed(data, url) {
   // Collect a list of oembeds for all of the metadata we collected
   var oembeds = [];
@@ -45,43 +51,16 @@ export default function toOembed(data, url) {
     }
   }
   
-  console.log(oembeds);
-  
-  // Group oembeds by type
-  let types = groupBy(oembeds.filter(validateOembed), 'type');
-  for (let type in types) {
-    // Starting with the oembed with the most information, combine info
-    // from all oembeds of the same type.
-    types[type] = types[type].sort(compareOembeds).reduce((prev, cur) => {
-      // Ensure we're talking about the same object
-      if (cur.url !== prev.url) return prev;
-      
-      for (let key in cur) {
-        let rel = relatedProperties[key];
-        if (rel && prev[rel] && prev[rel] !== cur[rel]) {
-          continue;
-        }
-        
-        if (!prev[key] && cur[key]) {
-          prev[key] = cur[key];
-        }
-      }
-      
-      // Trust thumbnails with a higher score over those with a lower one
-      // (e.g. opengraph over images in the body)
-      if (cur.thumbnail_url !== prev.thumbnail_url && scoreThumbnail(cur) > scoreThumbnail(prev)) {
-        prev.thumbnail_url = cur.thumbnail_url;
-        prev.thumbnail_width = cur.thumbnail_width;
-        prev.thumbnail_height = cur.thumbnail_height;
-        prev.thumbnail_score = cur.thumbnail_score;
-      }
-    
-      return prev;
-    });
+  // Group oembeds by URL
+  let groups = groupBy(oembeds.filter(validateOembed), o => o.link || o.url);
+  for (let group in groups) {
+    // Starting with the oembed with the highest type, and most information, 
+    // combine info from all related oembeds.
+    groups[group] = groups[group].sort(compareOembeds).reduce(mergeOembeds);
   }
   
-  let res = types.video || types.photo || types.link;
-  
+  // Find the best of the merged results
+  let res = values(groups).sort(compareOembeds)[0];
   return res ? finalizeOembed(res) : null;
 }
 
@@ -116,7 +95,35 @@ function countValidKeys(oembed) {
 }
 
 function compareOembeds(a, b) {
+  if (typeOrder[a.type] !== typeOrder[b.type]) {
+    return typeOrder[b.type] - typeOrder[a.type];
+  }
+  
   return countValidKeys(b) - countValidKeys(a);
+}
+
+function mergeOembeds(prev, cur) {
+  for (let key in cur) {
+    let rel = relatedProperties[key];
+    if (rel && prev[rel] && prev[rel] !== cur[rel]) {
+      continue;
+    }
+    
+    if (!prev[key] && cur[key]) {
+      prev[key] = cur[key];
+    }
+  }
+  
+  // Trust thumbnails with a higher score over those with a lower one
+  // (e.g. opengraph over images in the body)
+  if (cur.thumbnail_url !== prev.thumbnail_url && scoreThumbnail(cur) > scoreThumbnail(prev)) {
+    prev.thumbnail_url = cur.thumbnail_url;
+    prev.thumbnail_width = cur.thumbnail_width;
+    prev.thumbnail_height = cur.thumbnail_height;
+    prev.thumbnail_score = cur.thumbnail_score;
+  }
+
+  return prev;
 }
 
 function scoreThumbnail(oembed) {
