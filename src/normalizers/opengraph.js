@@ -2,13 +2,7 @@ import {parseDimension, get} from '../utils';
 
 export default function opengraphToOembed(og, url) {
   let type = 'link';
-  if (og.type) {
-    if (/video/.test(og.type) && (og.video || og.player)) {
-      type = 'video';
-    } else if (/image|photo/.test(og.type) && og.image) {
-      type = 'photo';
-    }
-  } else if (og.card === 'photo') {
+  if ((/image|photo/.test(og.type) && og.image) || og.card === 'photo') {
     type = 'photo';
   }
   
@@ -42,7 +36,7 @@ export default function opengraphToOembed(og, url) {
   
   let video = get(og.video || og.player);
   let videoURL = video && ((video.stream && video.stream.url) || video.url);
-  if (videoURL) {
+  if (videoURL && videoURL !== url) {
     Object.assign(result, {
       type: 'video',
       url: videoURL,
