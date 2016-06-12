@@ -48,7 +48,7 @@ export default function opengraphToOembed(og, url) {
       url: videoURL,
       width: parseDimension(video.width),
       height: parseDimension(video.height),
-      video_type: video.stream && video.stream.url ? 'video' : 'iframe'
+      video_type: video.stream && video.stream.url ? 'video' : null
     });
   }
   
