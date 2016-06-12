@@ -10,6 +10,7 @@ export default function schemaToOembed(schema, url) {
     case 'Article':
     case 'NewsArticle':
     case 'BlogPosting':
+    case 'SocialMediaPosting':
     case 'WebPage':
       return {
         version: '1.0',
