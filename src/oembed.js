@@ -177,10 +177,8 @@ function finalizeOembed(oembed) {
     delete oembed.video_type;
   }
   
-  let provider = parseDomain(oembed.link || oembed.url);
-  if (!oembed.provider_url) {
-    oembed.provider_url = 'http://' + provider.domain + '.' + provider.tld;
-  }
+  let provider = parseDomain(oembed.provider_url || oembed.link || oembed.url);
+  oembed.provider_url = 'http://' + provider.domain + '.' + provider.tld;
   
   if (!oembed.provider_name) {
     oembed.provider_name = provider.domain;

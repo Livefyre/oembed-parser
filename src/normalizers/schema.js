@@ -5,6 +5,7 @@ export default function schemaToOembed(schema, url) {
   let image = getImage(schema.image) || getImage(schema.primaryImageOfPage) || getImage(schema.thumbnail) || getImage(schema.thumbnailUrl) || {};
   let thumbnail = getImage(schema.thumbnail) || {};
   let author = getAuthor(schema.author || schema.creator || schema.producer || schema.contributor) || {};
+  let provider = schema.provider || {};
   
   switch (type) {
     case 'Article':
@@ -24,6 +25,8 @@ export default function schemaToOembed(schema, url) {
         author_name: author.name,
         author_url: author.url,
         posted_at: schema.datePublished || schema.dateCreated || schema.dateModified || schema.uploadDate,
+        provider_name: provider.name,
+        provider_url: provider.url
       };
       
     case 'ImageObject':
@@ -42,6 +45,8 @@ export default function schemaToOembed(schema, url) {
         author_name: author.name,
         author_url: author.url,
         posted_at: schema.datePublished || schema.dateCreated || schema.dateModified || schema.uploadDate,
+        provider_name: provider.name,
+        provider_url: provider.url
       };
       
     case 'VideoObject':
@@ -60,6 +65,8 @@ export default function schemaToOembed(schema, url) {
         author_name: author.name,
         author_url: author.url,
         posted_at: schema.datePublished || schema.dateCreated || schema.dateModified || schema.uploadDate,
+        provider_name: provider.name,
+        provider_url: provider.url
       };
   }
 }
