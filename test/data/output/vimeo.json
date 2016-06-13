@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "type": "video",
+  "url": "https://player.vimeo.com/video/170469631",
+  "link": "https://vimeo.com/170469631",
+  "width": 1920,
+  "height": 1080,
+  "thumbnail_url": "https://i.vimeocdn.com/video/575569315_1280x720.jpg",
+  "thumbnail_width": 1280,
+  "thumbnail_height": 720,
+  "title": "Strong Water - Surfing in Montana",
+  "description": "Across the U.S. River surfing communities are popping up. This is due, in part, to cities cleaning and reclaiming their river waterfronts. Years ago Missoula, Montana…",
+  "author_name": "Jordan Halland",
+  "author_url": "https://vimeo.com/jordanhalland",
+  "posted_at": "2016-06-13T13:50:49.000Z",
+  "provider_name": "Vimeo",
+  "html": "<iframe src=\"https://player.vimeo.com/video/170469631\" allowfullscreen></iframe>",
+  "provider_url": "http://vimeo.com"
+}
