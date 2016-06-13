@@ -23,7 +23,7 @@ export default function schemaToOembed(schema, url) {
         thumbnail_height: image.height,
         author_name: author.name,
         author_url: author.url,
-        posted_at: schema.datePublished || schema.dateCreated || schema.dateModified
+        posted_at: schema.datePublished || schema.dateCreated || schema.dateModified || schema.uploadDate,
       };
       
     case 'ImageObject':
@@ -41,7 +41,7 @@ export default function schemaToOembed(schema, url) {
         description: schema.description,
         author_name: author.name,
         author_url: author.url,
-        posted_at: schema.datePublished || schema.dateCreated || schema.dateModified
+        posted_at: schema.datePublished || schema.dateCreated || schema.dateModified || schema.uploadDate,
       };
       
     case 'VideoObject':
@@ -59,7 +59,7 @@ export default function schemaToOembed(schema, url) {
         description: schema.description,
         author_name: author.name,
         author_url: author.url,
-        posted_at: schema.datePublished || schema.dateCreated || schema.dateModified
+        posted_at: schema.datePublished || schema.dateCreated || schema.dateModified || schema.uploadDate,
       };
   }
 }
