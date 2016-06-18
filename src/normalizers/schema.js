@@ -98,11 +98,9 @@ function getAuthor(author) {
   }
   
   if (typeof author === 'object') {
-    if (!author.name && (author.givenName || author.familyName)) {
-      author.name = [author.givenName, author.familyName].filter(Boolean).join(' ');
-    }
-    
-    author.url = author.url || author.href;
-    return author;
+    return {
+      name: author.name || [author.givenName, author.familyName].filter(Boolean).join(' '),
+      url: author.url || author.href
+    };
   }
 }
