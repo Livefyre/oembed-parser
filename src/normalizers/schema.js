@@ -25,8 +25,7 @@ export default function schemaToOembed(schema, url) {
         author_name: author.name,
         author_url: author.url,
         posted_at: schema.datePublished || schema.dateCreated || schema.dateModified || schema.uploadDate,
-        provider_name: provider.name,
-        provider_url: provider.url
+        provider_name: provider.name
       };
       
     case 'ImageObject':
@@ -45,8 +44,7 @@ export default function schemaToOembed(schema, url) {
         author_name: author.name,
         author_url: author.url,
         posted_at: schema.datePublished || schema.dateCreated || schema.dateModified || schema.uploadDate,
-        provider_name: provider.name,
-        provider_url: provider.url
+        provider_name: provider.name
       };
       
     case 'VideoObject':
@@ -65,8 +63,7 @@ export default function schemaToOembed(schema, url) {
         author_name: author.name,
         author_url: author.url,
         posted_at: schema.datePublished || schema.dateCreated || schema.dateModified || schema.uploadDate,
-        provider_name: provider.name,
-        provider_url: provider.url
+        provider_name: provider.name
       };
   }
 }
