@@ -11,7 +11,7 @@ import toOembed from './oembed';
 export default class Parser extends WritableStream {
   constructor(url) {
     let handler = new CompoundHandler({
-      opengraph: new Opengraph('og:'),
+      opengraph: new Opengraph('og:', /^(music|article):/),
       twitter: new Opengraph('twitter:'),
       microdata: new Microdata,
       meta: new Meta,
