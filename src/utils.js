@@ -43,6 +43,12 @@ export function setKey(root, path, value) {
     } else {
       if (!node[p])
         node[p] = {};
+      if (typeof node[p] !== 'object') {
+        node[p] = {
+          _: node[p]
+        };
+      }
+      
       node[p][path[path.length - 1]] = value;
     }
     
