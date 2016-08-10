@@ -10,7 +10,7 @@ import readabilityNormalizer from './normalizers/readability';
 
 const isURL = urlRegex();
 
-const mapping = {
+const MAPPERS = {
   opengraph: opengraphNormalizer,
   twitter: opengraphNormalizer,
   meta: metaNormalizer,
@@ -20,35 +20,54 @@ const mapping = {
   readability: readabilityNormalizer
 };
 
-const relatedProperties = {
-  width: 'url',
-  height: 'url',
-  thumbnail_width: 'thumbnail_url',
-  thumbnail_height: 'thumbnail_url',
-  thumbnail_score: 'thumbnail_url'
-};
-
-const uncountedKeys = {
-  thumbnail_score: true,
-  video_type: true
-};
-
-const typeOrder = {
+const TYPE_SCORE = {
   video: 3,
   photo: 2,
   link: 1
 };
 
+const SOURCE_SCORE = {
+  opengraph: 5,
+  twitter: 4,
+  microdata: 3,
+  rdfa: 3,
+  jsonld: 3,
+  meta: 2,
+  readability: 1
+};
+
+const RELATED_KEYS = {
+  width: 'url',
+  height: 'url',
+  thumbnail_width: 'thumbnail_url',
+  thumbnail_height: 'thumbnail_url'
+};
+
+const UNCOUNTED_KEYS = {
+  score: true,
+  video_type: true
+};
+
+const URL_KEYS = ['url', 'link', 'thumbnail_url', 'author_url'];
+
+function applyMapper(item, url, key) {
+  let res = MAPPERS[key](item, url);
+  if (res) {
+    res.score = TYPE_SCORE[res.type] * SOURCE_SCORE[key];
+  }
+  
+  return res;
+}
+
 export default function toOembed(data, url) {
   // Collect a list of oembeds for all of the metadata we collected
-  var oembeds = [];
-  for (var key in data) {
-    let mapper = mapping[key];
-    if (mapper && data[key]) {
+  let oembeds = [];
+  for (let key in data) {
+    if (MAPPERS[key] && data[key]) {
       if (Array.isArray(data[key])) {
-        oembeds.push(...data[key].map(item => mapper(item, url)));
+        oembeds.push(...data[key].map(item => applyMapper(item, url, key)));
       } else {
-        oembeds.push(mapper(data[key], url));
+        oembeds.push(applyMapper(data[key], url, key));
       }
     }
   }
@@ -93,10 +112,9 @@ function validateOembed(oembed, url) {
     delete oembed.author_name;
   }
   
-  oembed.url = resolveURL(url, oembed.url);
-  oembed.link = resolveURL(url, oembed.link);
-  oembed.thumbnail_url = resolveURL(url, oembed.thumbnail_url);
-  oembed.author_url = resolveURL(url, oembed.author_url);
+  for (let key of URL_KEYS) {
+    oembed[key] = resolveURL(url, oembed[key]);
+  }
   
   // Require at least one other key
   for (let key in oembed) {
@@ -115,7 +133,7 @@ function resolveURL(from, to) {
 function countValidKeys(oembed) {
   let count = 0;
   for (let key in oembed) {
-    if (oembed[key] && !uncountedKeys[key]) {
+    if (oembed[key] && !UNCOUNTED_KEYS[key]) {
       count++;
     }
   }
@@ -123,8 +141,12 @@ function countValidKeys(oembed) {
 }
 
 function compareOembeds(a, b) {
-  if (typeOrder[a.type] !== typeOrder[b.type]) {
-    return typeOrder[b.type] - typeOrder[a.type];
+  if (TYPE_SCORE[a.type] !== TYPE_SCORE[b.type]) {
+    return TYPE_SCORE[b.type] - TYPE_SCORE[a.type];
+  }
+  
+  if (a.score !== b.score) {
+    return b.score - a.score;
   }
   
   return countValidKeys(b) - countValidKeys(a);
@@ -132,39 +154,17 @@ function compareOembeds(a, b) {
 
 function mergeOembeds(prev, cur) {
   for (let key in cur) {
-    let rel = relatedProperties[key];
+    let rel = RELATED_KEYS[key];
     if (rel && prev[rel] && prev[rel] !== cur[rel]) {
       continue;
     }
     
-    if (!prev[key] && cur[key]) {
+    if (cur[key] && (!prev[key] || cur.score > prev.score)) {
       prev[key] = cur[key];
     }
   }
-  
-  // Trust thumbnails with a higher score over those with a lower one
-  // (e.g. opengraph over images in the body)
-  if (cur.thumbnail_url !== prev.thumbnail_url && scoreThumbnail(cur) > scoreThumbnail(prev)) {
-    prev.thumbnail_url = cur.thumbnail_url;
-    prev.thumbnail_width = cur.thumbnail_width;
-    prev.thumbnail_height = cur.thumbnail_height;
-    prev.thumbnail_score = cur.thumbnail_score;
-  }
 
   return prev;
-}
-
-function scoreThumbnail(oembed) {
-  if (!oembed.thumbnail_url) {
-    return -2;
-  }
-  
-  if (oembed.thumbnail_score) {
-    return oembed.thumbnail_score;
-  }
-  
-  // return (oembed.thumbnail_width || 0) * (oembed.thumbnail_height || 0);
-  return 0;
 }
 
 function finalizeOembed(oembed) {
@@ -194,7 +194,7 @@ function finalizeOembed(oembed) {
     delete oembed.link;
   }
   
-  delete oembed.thumbnail_score;
+  delete oembed.score;
   
   if (typeof oembed.author_name === 'string') {
     oembed.author_name = oembed.author_name.replace(/^by\s+/i, '');

@@ -17,7 +17,6 @@ export default function metaToOembed(meta, url) {
     thumbnail_url: image.src,
     thumbnail_width: image.width,
     thumbnail_height: image.height,
-    thumbnail_score: -1,
     posted_at: meta['article:published_time'] || meta['article:published'] || meta['article:modified_time'] || meta['parsely-pub-date'] || meta['sailthru.date'] || meta.date || meta['dc.date.issued'] || meta['dc.date'] || meta['dc:date'] || meta['bt:pubDate'] || meta['bt:modDate']
   };
 }
