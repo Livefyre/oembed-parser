@@ -178,10 +178,12 @@ function finalizeOembed(oembed) {
   }
   
   let provider = parseDomain(oembed.provider_url || oembed.link || oembed.url);
-  oembed.provider_url = 'http://' + provider.domain + '.' + provider.tld;
+  if (provider) {
+    oembed.provider_url = 'http://' + provider.domain + '.' + provider.tld;
   
-  if (!oembed.provider_name) {
-    oembed.provider_name = provider.domain;
+    if (!oembed.provider_name) {
+      oembed.provider_name = provider.domain;
+    }
   }
   
   if (oembed.posted_at) {
