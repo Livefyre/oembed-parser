@@ -169,7 +169,7 @@ function mergeOembeds(prev, cur) {
 
 function finalizeOembed(oembed) {
   if (oembed.type === 'video' && !oembed.html) {
-    let video_type = oembed.video_type || (/\.mp4$/.test(oembed.url) ? 'video' : 'iframe');
+    let video_type = oembed.video_type || (/\.mp4$/.test(URL.parse(oembed.url).pathname) ? 'video' : 'iframe');
     oembed.html = video_type === 'video'
       ? '<video controls src="' + oembed.url + '"></video>'
       : '<iframe src="' + oembed.url + '" allowfullscreen></iframe>';
