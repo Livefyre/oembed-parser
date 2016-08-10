@@ -38,8 +38,8 @@ export default class Meta extends Handler {
   
   a(attributes, text) {
     if (attributes.rel === 'author') {
-      this.result.link.author = attributes.href;
-      this.result.author = text;
+      add(this.result.link, 'author', attributes.href);
+      add(this.result, 'author', text);
     }
   }
 }
