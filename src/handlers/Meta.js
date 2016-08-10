@@ -14,7 +14,7 @@ export default class Meta extends Handler {
   }
   
   meta(attributes) {
-    let property = attributes.property || attributes.name;
+    let property = attributes.property || attributes.name || attributes['http-equiv'];
     if (property && attributes.content && !OPENGRAPH_RE.test(property)) {
       add(this.result, property, attributes.content);
     }
