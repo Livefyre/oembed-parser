@@ -40,7 +40,9 @@ export default class Microdata extends Handler {
       let item = this.microdataStack[this.microdataStack.length - 1];
       let value = attributes.src || attributes.href || attributes.content || attributes.datetime || text;
       
-      add(item, attributes.itemprop, value);
+      for (let prop of attributes.itemprop.split(/\s+/)) {
+        add(item, prop, value);
+      }
     }
   }
   
