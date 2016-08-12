@@ -175,8 +175,8 @@ function finalizeOembed(oembed) {
   
   // Generate video html if not already provided
   if (oembed.type === 'video' && !oembed.html) {
-    let video_type = oembed.video_type || (/\.mp4$/.test(URL.parse(oembed.url).pathname) ? 'video' : 'iframe');
-    oembed.html = video_type === 'video'
+    let isVideo = oembed.video_type === 'video' || /\.mp4$/.test(URL.parse(oembed.url).pathname);
+    oembed.html = isVideo
       ? '<video controls src="' + oembed.url + '"></video>'
       : '<iframe src="' + oembed.url + '" allowfullscreen></iframe>';
       
