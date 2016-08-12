@@ -1,12 +1,12 @@
 {
   "version": "1.0",
-  "type": "video",
-  "url": "http://www.cnn.com/videos/politics/2016/01/17/sotu-bernie-sanders-responds-to-chelsea-clinton-attack-sot.cnn",
-  "thumbnail_url": "http://i2.cdn.turner.com/cnnnext/dam/assets/160117162244-sotu-bernie-sanders-responds-to-chelsea-clinton-attack-sot-00005727-large-169.jpg",
-  "title": "Bernie Sanders: Chelsea Clinton is wrong",
-  "description": "Sen. Bernie Sanders talks with CNN's Jake Tapper about Chelsea Clinton's recent attacks on his healthcare plan.",
-  "html": "<iframe src=\"http://www.cnn.com/videos/politics/2016/01/17/sotu-bernie-sanders-responds-to-chelsea-clinton-attack-sot.cnn\" allowfullscreen></iframe>",
+  "type": "link",
+  "url": "http://www.cnn.com/2016/01/17/politics/bernie-sanders-health-care-plan-sotu/index.html",
+  "thumbnail_url": "http://i2.cdn.turner.com/cnnnext/dam/assets/160117095426-bernie-sanders-gun-liability-corporations-reversal-sotu-00000000-large-tease.jpg",
+  "title": "Sanders: 'Disappointed' by Chelsea Clinton attack - CNNPolitics.com",
+  "description": "Bernie Sanders on Sunday rejected the Clinton campaign's assertions that his proposals for single-payer health care would be the undoing of decades of progressive programs and reform.",
   "provider_url": "http://cnn.com",
-  "provider_name": "cnn",
-  "posted_at": "2016-01-17T21:26:56.000Z"
+  "provider_name": "CNN",
+  "posted_at": "2016-01-17T16:16:20.000Z",
+  "author_name": "Gregory Krieg, CNN"
 }
