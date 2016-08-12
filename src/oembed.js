@@ -149,15 +149,7 @@ function countValidKeys(oembed) {
 }
 
 function compareOembeds(a, b) {
-  if (TYPE_SCORE[a.type] !== TYPE_SCORE[b.type]) {
-    return TYPE_SCORE[b.type] - TYPE_SCORE[a.type];
-  }
-  
-  if (a.score !== b.score) {
-    return b.score - a.score;
-  }
-  
-  return countValidKeys(b) - countValidKeys(a);
+  return b.score - a.score;
 }
 
 function mergeOembeds(prev, cur) {
