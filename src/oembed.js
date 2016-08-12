@@ -77,7 +77,7 @@ export default function toOembed(data, url) {
   // Group oembeds by URL
   let groups = groupBy(oembeds, o => o.link || o.url);
   for (let group in groups) {
-    // Starting with the oembed with the highest type, and most information, 
+    // Starting with the oembed with the highest score, 
     // combine info from all related oembeds.
     groups[group] = groups[group].sort(compareOembeds).reduce(mergeOembeds);
   }
@@ -108,12 +108,20 @@ function validateOembed(oembed, url) {
     }
   }
   
+  // Remove author_name if it looks like a url
   if (isURL.test(oembed.author_name)) {
     delete oembed.author_name;
   }
   
+  // Resolve absolute urls
   for (let key of URL_KEYS) {
     oembed[key] = resolveURL(url, oembed[key]);
+  }
+  
+  // Parse posted_at dates
+  if (oembed.posted_at) {
+    let d = moment.utc(oembed.posted_at, moment.ISO_8601);
+    oembed.posted_at = d.isValid() ? d.toDate() : undefined;
   }
   
   // Require at least one other key
