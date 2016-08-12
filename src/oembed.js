@@ -183,6 +183,7 @@ function finalizeOembed(oembed) {
     delete oembed.video_type;
   }
   
+  // Generate provider_url and provider_name
   let provider = parseDomain(oembed.provider_url || oembed.link || oembed.url);
   if (provider) {
     oembed.provider_url = 'http://' + provider.domain + '.' + provider.tld;
@@ -192,19 +193,23 @@ function finalizeOembed(oembed) {
     }
   }
   
-  if (oembed.posted_at) {
-    oembed.posted_at = moment.utc(oembed.posted_at).toDate();
+  // Remove image thumbnail if it is the same as image url
+  if (oembed.type === 'photo' && oembed.thumbnail_url === oembed.url) {
+    delete oembed.thumbnail_url;
+    delete oembed.thumbnail_width;
+    delete oembed.thumbnail_height;
   }
   
+  // Remove link if it is the same as url
   if (oembed.link === oembed.url) {
     delete oembed.link;
   }
   
-  delete oembed.score;
-  
+  // Clean up author name
   if (typeof oembed.author_name === 'string') {
     oembed.author_name = oembed.author_name.replace(/^by\s+/i, '');
   }
   
+  delete oembed.score;
   return oembed;
 }
