@@ -168,6 +168,12 @@ function mergeOembeds(prev, cur) {
 }
 
 function finalizeOembed(oembed) {
+  // Remove autoplay attribute from video urls
+  if (oembed.type === 'video') {
+    oembed.url = oembed.url.replace(/[\?&]autoplay=[^&]+/g, '');
+  }
+  
+  // Generate video html if not already provided
   if (oembed.type === 'video' && !oembed.html) {
     let video_type = oembed.video_type || (/\.mp4$/.test(URL.parse(oembed.url).pathname) ? 'video' : 'iframe');
     oembed.html = video_type === 'video'
