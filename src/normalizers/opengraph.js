@@ -37,12 +37,14 @@ export default function opengraphToOembed(og, url) {
   let video = get(og.video || og.player);
   let videoURL = video && ((video.stream && video.stream.url) || video.url);
   if (videoURL && videoURL !== url) {
+    let video_type = video.stream && video.stream.url ? 'video' : 'iframe';
     Object.assign(result, {
       type: 'video',
       url: videoURL,
       width: parseDimension(video.width),
       height: parseDimension(video.height),
-      video_type: video.stream && video.stream.url ? 'video' : null
+      video_type: video_type,
+      score: video_type === 'video' ? 2 : 0
     });
   }
   
