@@ -53,7 +53,7 @@ const URL_KEYS = ['url', 'link', 'thumbnail_url', 'author_url'];
 function applyMapper(item, url, key) {
   let res = MAPPERS[key](item, url);
   if (res) {
-    res.score = TYPE_SCORE[res.type] * SOURCE_SCORE[key];
+    res.score = ((res.score || 0) + TYPE_SCORE[res.type]) * SOURCE_SCORE[key];
   }
   
   return res;

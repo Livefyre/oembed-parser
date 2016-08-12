@@ -7,6 +7,10 @@ export default function schemaToOembed(schema, url) {
   let author = getAuthor(schema.author || schema.creator || schema.producer || schema.contributor) || {};
   let provider = schema.provider || {};
   
+  // Boost the main entity of the page. News articles should also be considered the main content
+  // (to avoid cases with surrounding video, e.g. CNN).
+  let score = schema.mainEntityOfPage || (type === 'NewsArticle' && schema.articleBody) ? 2 : 0;
+  
   switch (type) {
     case 'Article':
     case 'NewsArticle':
@@ -25,7 +29,8 @@ export default function schemaToOembed(schema, url) {
         author_name: author.name,
         author_url: author.url,
         posted_at: schema.datePublished || schema.dateCreated || schema.dateModified || schema.uploadDate,
-        provider_name: provider.name
+        provider_name: provider.name,
+        score: score
       };
       
     case 'ImageObject':
@@ -44,7 +49,8 @@ export default function schemaToOembed(schema, url) {
         author_name: author.name,
         author_url: author.url,
         posted_at: schema.datePublished || schema.dateCreated || schema.dateModified || schema.uploadDate,
-        provider_name: provider.name
+        provider_name: provider.name,
+        score: score
       };
       
     case 'VideoObject':
@@ -52,7 +58,7 @@ export default function schemaToOembed(schema, url) {
         version: '1.0',
         type: 'video',
         url: schema.contentUrl || schema.contentURL || schema.embedUrl || schema.embedURL,
-        link: schema.url || schema.embedUrl || url,
+        link: schema.url || url,
         width: parseDimension(schema.width),
         height: parseDimension(schema.height),
         thumbnail_url: image.contentUrl,
@@ -63,7 +69,8 @@ export default function schemaToOembed(schema, url) {
         author_name: author.name,
         author_url: author.url,
         posted_at: schema.datePublished || schema.dateCreated || schema.dateModified || schema.uploadDate,
-        provider_name: provider.name
+        provider_name: provider.name,
+        score: score
       };
   }
 }
