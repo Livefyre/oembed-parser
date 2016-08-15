@@ -2,7 +2,7 @@ import {parseDimension, get} from '../utils';
 
 export default function opengraphToOembed(og, url) {
   let type = 'link';
-  if ((/image|photo/.test(og.type) && og.image)) {
+  if ((/image|photo/.test(og.type) && !/profile/.test(og.type) && og.image)) {
     type = 'photo';
   }
   
