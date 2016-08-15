@@ -22,6 +22,7 @@ const MAPPERS = {
 
 const TYPE_SCORE = {
   video: 3,
+  rich: 3,
   photo: 2,
   link: 1
 };
@@ -174,8 +175,8 @@ function finalizeOembed(oembed) {
   }
   
   // Generate video html if not already provided
-  if (oembed.type === 'video' && !oembed.html) {
-    let isVideo = oembed.video_type === 'video' || /\.mp4$/.test(URL.parse(oembed.url).pathname);
+  if ((oembed.type === 'video' || oembed.type === 'rich') && !oembed.html) {
+    let isVideo = oembed.type === 'video' && (oembed.video_type === 'video' || /\.mp4$/.test(URL.parse(oembed.url).pathname));
     oembed.html = isVideo
       ? '<video controls src="' + oembed.url + '"></video>'
       : '<iframe src="' + oembed.url + '" allowfullscreen></iframe>';

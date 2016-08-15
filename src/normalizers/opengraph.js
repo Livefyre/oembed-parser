@@ -39,7 +39,7 @@ export default function opengraphToOembed(og, url) {
   if (videoURL && videoURL !== url) {
     let video_type = video.stream && video.stream.url ? 'video' : 'iframe';
     Object.assign(result, {
-      type: 'video',
+      type: /music|song/.test(og.type) ? 'rich' : 'video',
       url: videoURL,
       width: parseDimension(video.width),
       height: parseDimension(video.height),
