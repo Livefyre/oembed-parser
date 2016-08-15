@@ -9,7 +9,8 @@ export default function schemaToOembed(schema, url) {
   
   // Boost the main entity of the page. News articles should also be considered the main content
   // (to avoid cases with surrounding video, e.g. CNN).
-  let score = schema.mainEntityOfPage || (type === 'NewsArticle' && schema.articleBody) ? 2 : 0;
+  let score = (schema.mainEntityOfPage && type !== 'SocialMediaPosting') 
+            || (type === 'NewsArticle' && schema.articleBody) ? 5 : 0;
   
   switch (type) {
     case 'Article':
