@@ -51,15 +51,6 @@ const UNCOUNTED_KEYS = {
 
 const URL_KEYS = ['url', 'link', 'thumbnail_url', 'author_url'];
 
-function applyMapper(item, url, key) {
-  let res = MAPPERS[key](item, url);
-  if (res) {
-    res.score = ((res.score || 0) + TYPE_SCORE[res.type]) * SOURCE_SCORE[key];
-  }
-  
-  return res;
-}
-
 export default function toOembed(data, url) {
   // Collect a list of oembeds for all of the metadata we collected
   let oembeds = [];
@@ -88,6 +79,15 @@ export default function toOembed(data, url) {
   return res ? finalizeOembed(res) : null;
 }
 
+function applyMapper(item, url, key) {
+  let res = MAPPERS[key](item, url);
+  if (res) {
+    res.score = ((res.score || 0) + TYPE_SCORE[res.type]) * SOURCE_SCORE[key];
+  }
+  
+  return res;
+}
+
 function validateOembed(oembed, url) {
   // Require a url
   if (!oembed || !oembed.url) {
@@ -102,7 +102,7 @@ function validateOembed(oembed, url) {
       } else {
         delete oembed[key];
       }
-    } else if (val == null) {
+    } else if (val == null || typeof val === 'object') {
       delete oembed[key];
     } else if (typeof val === 'string') {
       oembed[key] = val.trim();
