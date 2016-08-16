@@ -2,7 +2,7 @@ import Parser from '../src/Parser';
 import fs from 'fs';
 import assert from 'assert';
 
-describe('htmlmeta', function() {
+describe('oembed-parser', function() {
   let dir = __dirname + '/data/input/';
   for (let file of fs.readdirSync(dir)) {
     it(file, function(done) {

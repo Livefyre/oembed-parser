@@ -1,4 +1,4 @@
-# htmlmeta
+# oembed-parser
 
 Streaming HTML metadata parser, and [oembed](http://oembed.com) converter.
 
@@ -15,7 +15,7 @@ Supports the following types of metadata:
 ## Example
 
 ```javascript
-import Parser from 'htmlmeta';
+import Parser from 'oembed-parser';
 import request from 'request';
 
 const url = 'http://nyti.ms/2blhZjw';

@@ -139,16 +139,6 @@ function resolveURL(from, to) {
   return to ? URL.resolve(from || 'http://', to) : undefined;
 }
 
-function countValidKeys(oembed) {
-  let count = 0;
-  for (let key in oembed) {
-    if (oembed[key] && !UNCOUNTED_KEYS[key]) {
-      count++;
-    }
-  }
-  return count;
-}
-
 function compareOembeds(a, b) {
   return b.score - a.score;
 }

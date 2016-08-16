@@ -1,13 +1,13 @@
 {
-  "name": "htmlmeta",
+  "name": "oembed-parser",
   "version": "1.0.0",
   "description": "",
   "main": "src/Parser.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --require babel/register"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Devon Govett <devongovett@gmail.com>",
+  "license": "MIT",
   "dependencies": {
     "entities": "^1.1.1",
     "htmlparser2": "^3.9.0",
@@ -16,5 +16,9 @@
     "parse-domain": "^0.2.1",
     "readabilitySAX": "^1.6.1",
     "url-regex": "^3.2.0"
+  },
+  "devDependencies": {
+    "babel": "^5.8.38",
+    "mocha": "^3.0.2"
   }
 }
