@@ -51,7 +51,11 @@ const UNCOUNTED_KEYS = {
 
 const URL_KEYS = ['url', 'link', 'thumbnail_url', 'author_url'];
 
-export default function toOembed(data, url) {
+export default function toOembed(data, url, options = {}) {
+  if (/snappytv\.com/.test(url)) {
+    delete data.opengraph;
+  }
+
   // Collect a list of oembeds for all of the metadata we collected
   let oembeds = [];
   for (let key in data) {
@@ -63,17 +67,17 @@ export default function toOembed(data, url) {
       }
     }
   }
-  
+
   oembeds = oembeds.filter(o => validateOembed(o, url));
-  
+
   // Group oembeds by URL
   let groups = groupBy(oembeds, o => o.link || o.url);
   for (let group in groups) {
-    // Starting with the oembed with the highest score, 
+    // Starting with the oembed with the highest score,
     // combine info from all related oembeds.
     groups[group] = groups[group].sort(compareOembeds).reduce(mergeOembeds);
   }
-  
+
   // Find the best of the merged results
   let res = values(groups).sort(compareOembeds)[0];
   return res ? finalizeOembed(res) : null;
@@ -84,7 +88,7 @@ function applyMapper(item, url, key) {
   if (res) {
     res.score = ((res.score || 0) + TYPE_SCORE[res.type]) * SOURCE_SCORE[key];
   }
-  
+
   return res;
 }
 
@@ -93,7 +97,7 @@ function validateOembed(oembed, url) {
   if (!oembed || !oembed.url) {
     return false;
   }
-  
+
   for (let key in oembed) {
     let val = oembed[key];
     if (Array.isArray(val)) {
@@ -108,30 +112,30 @@ function validateOembed(oembed, url) {
       oembed[key] = val.trim();
     }
   }
-  
+
   // Remove author_name if it looks like a url
   if (isURL.test(oembed.author_name)) {
     delete oembed.author_name;
   }
-  
+
   // Resolve absolute urls
   for (let key of URL_KEYS) {
     oembed[key] = resolveURL(url, oembed[key]);
   }
-  
+
   // Parse posted_at dates
   if (oembed.posted_at) {
     let d = moment.utc(oembed.posted_at, moment.ISO_8601);
     oembed.posted_at = d.isValid() ? d.toDate() : undefined;
   }
-  
+
   // Require at least one other key
   for (let key in oembed) {
     if (oembed[key] && key !== 'url' && key !== 'link') {
       return true;
     }
   }
-  
+
   return false;
 }
 
@@ -149,7 +153,7 @@ function mergeOembeds(prev, cur) {
     if (rel && prev[rel] && prev[rel] !== cur[rel]) {
       continue;
     }
-    
+
     if (cur[key] && (!prev[key] || cur.score > prev.score)) {
       prev[key] = cur[key];
     }
@@ -163,44 +167,44 @@ function finalizeOembed(oembed) {
   if (oembed.type === 'video') {
     oembed.url = oembed.url.replace(/[\?&]autoplay=[^&]+/g, '');
   }
-  
+
   // Generate video html if not already provided
   if ((oembed.type === 'video' || oembed.type === 'rich') && !oembed.html) {
     let isVideo = oembed.type === 'video' && (oembed.video_type === 'video' || /\.mp4$/.test(URL.parse(oembed.url).pathname));
     oembed.html = isVideo
       ? '<video controls src="' + oembed.url + '"></video>'
       : '<iframe src="' + oembed.url + '" allowfullscreen></iframe>';
-      
+
     delete oembed.video_type;
   }
-  
+
   // Generate provider_url and provider_name
   let provider = parseDomain(oembed.provider_url || oembed.link || oembed.url);
   if (provider) {
     oembed.provider_url = 'http://' + provider.domain + '.' + provider.tld;
-  
+
     if (!oembed.provider_name) {
       oembed.provider_name = provider.domain;
     }
   }
-  
+
   // Remove image thumbnail if it is the same as image url
   if (oembed.type === 'photo' && oembed.thumbnail_url === oembed.url) {
     delete oembed.thumbnail_url;
     delete oembed.thumbnail_width;
     delete oembed.thumbnail_height;
   }
-  
+
   // Remove link if it is the same as url
   if (oembed.link === oembed.url) {
     delete oembed.link;
   }
-  
+
   // Clean up author name
   if (typeof oembed.author_name === 'string') {
     oembed.author_name = oembed.author_name.replace(/^by\s+/i, '');
   }
-  
+
   delete oembed.score;
   return oembed;
 }
