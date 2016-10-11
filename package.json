@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/Parser.js",
   "scripts": {
-    "test": "mocha --require babel/register"
+    "test": "mocha --require babel-register --require babel-polyfill"
   },
   "author": "Devon Govett <devongovett@gmail.com>",
   "license": "MIT",
@@ -18,7 +18,9 @@
     "url-regex": "^3.2.0"
   },
   "devDependencies": {
-    "babel": "^5.8.38",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015": "^6.16.0",
+    "babel-register": "^6.16.3",
     "mocha": "^3.0.2"
   }
 }
