@@ -66,7 +66,9 @@ export default class Handler {
       return;
     }
 
-    text = entities.decodeHTML(text);
+    if (name !== 'script') {
+      text = entities.decodeHTML(text);
+    }
 
     if (typeof this[name] === 'function') {
       this[name](attributes, text);
