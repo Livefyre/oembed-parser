@@ -1,6 +1,5 @@
 import {parseDimension, get} from '../utils';
 const URL = require('url');
-//const URLSearchParams = require('url');
 
 export default function opengraphToOembed(og, url) {
   let type = 'link';
