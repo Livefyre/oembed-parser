@@ -1,5 +1,5 @@
 import {parseDimension, get} from '../utils';
-const URL = require('url');
+import {URL} from 'url';
 
 export default function opengraphToOembed(og, url) {
   let type = 'link';
@@ -39,16 +39,13 @@ export default function opengraphToOembed(og, url) {
   let videoURL = video && ((video.stream && video.stream.url) || video.url);
   if (videoURL && videoURL !== url) {
     const parsedURL = URL.parse(videoURL, true);
-    if (parsedURL.host == 'vk.com') {
-      var oid = parsedURL.query.oid;
-      var id = parsedURL.query.vid;
-      var hash = parsedURL.query.embed_hash;
-      var fixedURL = "https://vk.com/video_ext.php?oid=" + oid + "&id=" + id + "&hash=" + hash;
+    if (parsedURL.host === 'vk.com') {
+      videoURL = "https://vk.com/video_ext.php?oid=" + parsedURL.query.oid + "&id=" + parsedURL.query.vid + "&hash=" + parsedURL.query.embed_hash;
     }
     let video_type = video.stream && video.stream.url ? 'video' : 'iframe';
     Object.assign(result, {
       type: /music|song/.test(og.type) ? 'rich' : 'video',
-      url: fixedURL,
+      url: videoURL,
       width: parseDimension(video.width),
       height: parseDimension(video.height),
       video_type: video_type,
