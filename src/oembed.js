@@ -125,7 +125,11 @@ function validateOembed(oembed, url) {
 
   // Parse posted_at dates
   if (oembed.posted_at) {
-    let d = moment.utc(oembed.posted_at, moment.ISO_8601);
+    if (/[+-]\d{3}$/.test(oembed.posted_at)) {
+      oembed.posted_at = oembed.posted_at.replace(/([+-])(\d{1})(\d{2})$/, '$10$2:$3');
+    }
+
+    let d = moment.utc(oembed.posted_at, [moment.ISO_8601, 'YYYY-MM-DD HH:mm:ss Z']);
     oembed.posted_at = d.isValid() ? d.toDate() : undefined;
   }
 
