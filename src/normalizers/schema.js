@@ -59,7 +59,7 @@ export default function schemaToOembed(schema, url) {
         version: '1.0',
         type: 'video',
         url: typeof url === 'string' && url.indexOf('cnn.com') > -1 ?
-          (schema.embedUrl || schema.embedURL) :
+          (schema.embedUrl || schema.embedURL).replace(/http:/, 'https:') :
           (schema.contentUrl || schema.contentURL || schema.embedUrl || schema.embedURL),
         link: schema.url || url,
         width: parseDimension(schema.width),
