@@ -1,0 +1,13 @@
+{
+  "description": "Gunfire and explosions have been heard at tourist destination Resorts World Manila in the Philippines, according to reports.",
+  "html": "<iframe src=\"https://fave.api.cnn.io/v1/fav/?video=world/2017/06/01/resorts-world-manila-philippines-gunfire-explosions-update.cnn&customer=cnn&edition=domestic&env=prod\" allowfullscreen></iframe>",
+  "link": "http://www.cnn.com/videos/world/2017/06/01/resorts-world-manila-philippines-gunfire-explosions-update.cnn",
+  "posted_at": "2017-06-01T17:54:17.000Z",
+  "provider_name": "CNN",
+  "provider_url": "http://cnn.com",
+  "thumbnail_url": "http://i2.cdn.cnn.com/cnnnext/dam/assets/170601135033-resorts-world-manila-philippines-gunfire-explosions-update-00005323-large-169.jpg",
+  "title": "Gunfire, explosions heard at Manila resort",
+  "type": "video",
+  "url": "https://fave.api.cnn.io/v1/fav/?video=world/2017/06/01/resorts-world-manila-philippines-gunfire-explosions-update.cnn&customer=cnn&edition=domestic&env=prod",
+  "version": "1.0"
+}
