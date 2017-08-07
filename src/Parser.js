@@ -19,16 +19,16 @@ export default class Parser extends WritableStream {
       rdfa: new RDFa,
       readability: new Readability
     });
-    
+
     super(handler, {decodeEntities: true});
     this.handler = handler;
     this.url = url;
   }
-  
+
   getData() {
     return this.handler.getResult();
   }
-  
+
   getOembed() {
     return toOembed(this.getData(), this.url);
   }

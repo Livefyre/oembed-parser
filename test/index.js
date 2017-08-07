@@ -8,7 +8,7 @@ describe('oembed-parser', function() {
     it(file, function(done) {
       let match = fs.readFileSync(dir + file, 'utf8').match(/^<!--\s*(.+?)\s*-->/);
       let url = match && match[1];
-      
+
       let parser = new Parser(url);
       fs.createReadStream(dir + file)
         .pipe(parser)

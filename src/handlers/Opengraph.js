@@ -14,18 +14,18 @@ var rootKeys = {
 export default class Opengraph extends Handler {
   constructor(prefix = 'og:', subtypes) {
     super();
-    
+
     this.prefix = prefix;
     this.subtypes = subtypes;
     this.result = Object.create(null);
   }
-  
+
   meta(attributes) {
     let property = attributes.property || attributes.name;
     if (this.subtypes && this.subtypes.test(property)) {
       property = this.prefix + property;
     }
-    
+
     if (property && attributes.content && property.indexOf(this.prefix) === 0) {
       let k = property.slice(this.prefix.length);
       k = rootKeys[k] || k;
