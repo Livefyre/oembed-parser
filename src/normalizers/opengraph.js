@@ -1,12 +1,12 @@
 import {parseDimension, get} from '../utils';
-import {URL} from 'url';
+import URL from 'url';
 
 export default function opengraphToOembed(og, url) {
   let type = 'link';
   if ((/image|photo/.test(og.type) && !/profile/.test(og.type) && og.image)) {
     type = 'photo';
   }
-  
+
   let article = get(og.article) || {};
   let result = {
     version: '1.0',
@@ -19,14 +19,14 @@ export default function opengraphToOembed(og, url) {
     posted_at: og.pubdate || article.published_time || article.modified_time,
     author_name: article.author
   };
-  
+
   let ogImage = get(og.image) || {};
   let image = {
     url: ogImage.url || ogImage.src,
     width: parseDimension(ogImage.width),
     height: parseDimension(ogImage.height)
   };
-  
+
   if (type === 'photo') {
     Object.assign(result, image);
   } else {
@@ -34,7 +34,7 @@ export default function opengraphToOembed(og, url) {
     result.thumbnail_width = image.width;
     result.thumbnail_height = image.height;
   }
-  
+
   let video = get(og.video || og.player);
   let videoURL = video && ((video.stream && video.stream.url) || video.url);
   if (videoURL && videoURL !== url) {
@@ -52,6 +52,6 @@ export default function opengraphToOembed(og, url) {
       score: video_type === 'video' ? 2 : 0
     });
   }
-  
+
   return result;
 }
